@@ -1,0 +1,51 @@
+{
+    "name": "sagor110090/livewire-crud",
+    "description": "Scaffold Livewire Components, migrations, factory and crud in one command based on database tables",
+    "keywords": [
+        "sagor110090",
+        "livewire-crud"
+    ],
+    "homepage": "https://github.com/sagor110090/livewire-crud",
+    "license": "MIT",
+    "type": "library",
+    "authors": [{
+        "name": "Mehedi Hasan Sagor",
+        "email": "mehedihasansagor.cse@gmail.com",
+        "role": "Developer"
+    }],
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^6.0|^7.0|^8.0",
+        "laravel/ui": "^2|^3",
+        "livewire/livewire": "^2"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "sagor110090\\LivewireCrud\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "sagor110090\\LivewireCrud\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "sagor110090\\LivewireCrud\\LivewireCrudServiceProvider"
+            ],
+            "aliases": {
+                "LivewireCrud": "sagor110090\\LivewireCrud\\LivewireCrudFacade"
+            }
+        }
+    }
+}

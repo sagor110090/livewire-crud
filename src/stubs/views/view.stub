@@ -7,7 +7,7 @@
                     <h3 class="mb-0 fw-bold text-white">{{modelTitle}} Listing</h3>
                 </div>
                 <div>
-                    <button type="button" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    <button type="button" href="#" data-bs-toggle="modal" wire:click.prevent="resetInput()"  data-bs-target="#staticBackdrop"
                         class="btn btn-white"><i class="fa fa-plus"></i> Create New {{modelTitle}}s</button>
                 </div>
             </div>

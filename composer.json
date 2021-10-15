@@ -41,10 +41,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "sagor110090\\LivewireCrud\\LivewireCrudServiceProvider"
+                "Sagor110090\\LivewireCrud\\LivewireCrudServiceProvider"
             ],
             "aliases": {
-                "LivewireCrud": "sagor110090\\LivewireCrud\\LivewireCrudFacade"
+                "LivewireCrud": "Sagor110090\\LivewireCrud\\LivewireCrudFacade"
             }
         }
     }

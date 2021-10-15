@@ -1,9 +1,9 @@
 <?php
 
-namespace Flightsadmin\LivewireCrud\Tests;
+namespace Sagor110090\LivewireCrud\Tests;
 
 use Orchestra\Testbench\TestCase;
-use Flightsadmin\LivewireCrud\LivewireCrudServiceProvider;
+use Sagor110090\LivewireCrud\LivewireCrudServiceProvider;
 
 class ExampleTest extends TestCase
 {
@@ -12,7 +12,7 @@ class ExampleTest extends TestCase
     {
         return [LivewireCrudServiceProvider::class];
     }
-    
+
     /** @test */
     public function true_is_true()
     {

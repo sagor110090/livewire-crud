@@ -1,6 +1,6 @@
 <?php
 
-namespace Flightsadmin\LivewireCrud\Commands;
+namespace Sagor110090\LivewireCrud\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -13,7 +13,7 @@ class LivewireInstall extends Command
     protected $stubDir;
     protected $argument;
     private $replaces = [];
-	
+
     protected $signature = 'crud:install';
     protected $description = 'Install Livewire CRUD Generator, compile and publish it\'s assets';
 
@@ -24,8 +24,8 @@ class LivewireInstall extends Command
 		(new Filesystem)->ensureDirectoryExists(app_path('Http/Controllers'));
 		(new Filesystem)->ensureDirectoryExists(app_path('Models'));
 		(new Filesystem)->ensureDirectoryExists(resource_path('views/livewire'));
-		
-        if ($this->confirm('This will delete compiled assets in public folder. It will Re-Compile this. Do you want to proceed?') == 'yes') {        
+
+        if ($this->confirm('This will delete compiled assets in public folder. It will Re-Compile this. Do you want to proceed?') == 'yes') {
 			if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App') == 'yes') {
 					Artisan::call('ui:auth', [], $this->getOutput());
 			}
@@ -50,10 +50,10 @@ class LivewireInstall extends Command
                 $this->warn('Deleted file: <info>' . $deleteFile . '</info>');
             }
         }
-		
+
         $this->stubDir = __DIR__ . '/../../resources/install';
         $this->generateFiles();
-		
+
 		$this->line('');
 		$this->warn('Running: <info>npm install && npm run dev</info> Please wait...');
 		$this->line('');
@@ -63,7 +63,7 @@ class LivewireInstall extends Command
         $this->info('Installation Complete, few seconds please, let us optimize your site');
         $this->warn('');
         $this->warn('Removing Dumped node_modules files. Please wait...');
-		
+
 		tap(new Filesystem, function ($npm) {
             $npm->deleteDirectory(base_path('node_modules'));
             $npm->delete(base_path('yarn.lock'));
@@ -71,11 +71,11 @@ class LivewireInstall extends Command
         });
         $this->info('node_modules files Removed');
         $this->info('');
-        $this->warn('All set, run <info>php artisan crud:generate {table-name}</info> to build your CRUD');		
+        $this->warn('All set, run <info>php artisan crud:generate {table-name}</info> to build your CRUD');
 	  }
 		else $this->warn('Installation Aborted, No file was changed');
     }
-	
+
 	public function generateFiles()
     {
         foreach ($this->filesystem->allFiles($this->stubDir, true) as $file) {

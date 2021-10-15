@@ -13,7 +13,7 @@
             </div>
             <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary close-modal">Save</button>
+                <button type="button" wire:click.prevent="update()" data-bs-dismiss="modal" class="btn btn-primary close-modal">Update</button>
             </div>
         </div>
     </div>

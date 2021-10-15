@@ -1,0 +1,5 @@
+            <div class="form-group">
+                <label for="{{column}}"></label>
+                <textarea wire:model="{{column}}" placeholder="{{title}} id="{{column}}" class="form-control" cols="30" rows="10"></textarea>
+                @error('{{column}}') <span class="error text-danger">{{ $message }}</span> @enderror
+            </div>

@@ -54,6 +54,8 @@ abstract class LivewireGeneratorCommand extends Command
      */
     private $tableColumns = null;
 
+    private $datatypeAndFields = null;
+
     /**
      * Model Namespace.
      * @var string
@@ -266,16 +268,44 @@ abstract class LivewireGeneratorCommand extends Command
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      *
      */
-    protected function getField($title, $column, $type = 'form-field')
+    protected function getField($title, $column, $type = null)
     {
         $replace = array_merge($this->buildReplacements(), [
             '{{title}}' => $title,
             '{{column}}' => $column,
         ]);
+ 
 
+        $unwanted = $this->unwantedColumns;
+
+        for ($i=0; $i < sizeof($this->datatypeAndFields); $i++) {
+            $datatypeAndFields[] = array_filter($this->datatypeAndFields[$i], function ($value) use ($unwanted) {
+                return !in_array($value, $unwanted);
+            });
+            if (isset($datatypeAndFields[$i]['name'])) {
+                if ($datatypeAndFields[$i]['name'] == $column) {
+                    if ($datatypeAndFields[$i]['type']=='varchar(255)') {
+                        $type = 'form-field';
+                    }
+                    if ($datatypeAndFields[$i]['type']=='int(11)') {
+                        $type = 'number-field';
+                    }
+                    if ($datatypeAndFields[$i]['type']=='longtext') {
+                        $type = 'textarea-field';
+                    }
+                    if ($datatypeAndFields[$i]['type']=='date') {
+                        $type = 'date-field';
+                    }
+                    if ($datatypeAndFields[$i]['type']=='time') {
+                        $type = 'time-field';
+                    }
+                }
+            }
+        }
         return str_replace(
             array_keys($replace), array_values($replace), $this->getStub("views/{$type}")
         );
+
     }
 
     /**
@@ -339,7 +369,6 @@ abstract class LivewireGeneratorCommand extends Command
         if (empty($this->tableColumns)) {
             $this->tableColumns = DB::select('SHOW COLUMNS FROM ' . $this->table);
         }
-
         return $this->tableColumns;
     }
 
@@ -350,10 +379,12 @@ abstract class LivewireGeneratorCommand extends Command
     {
         $unwanted = $this->unwantedColumns;
         $columns = [];
-
-        foreach ($this->getColumns() as $column) {
+        foreach ($this->getColumns() as $key=>$column) {
             $columns[] = $column->Field;
+            $type[$key]['type'] = $column->Type;
+            $type[$key]['name'] = $column->Field;
         }
+        $this->datatypeAndFields = $type;
 
         return array_filter($columns, function ($value) use ($unwanted) {
             return !in_array($value, $unwanted);

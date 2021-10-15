@@ -37,7 +37,6 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 
         // Build the class name from table name
         $this->name = $this->_buildClassName();
-
         // Generate the crud
            $this->buildModel()
 				->buildViews();
@@ -126,7 +125,6 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $viewRows = "\n";
         $form = "\n";
         $type = null;
-
         foreach ($this->getFilteredColumns() as $column) {
             $title = Str::title(str_replace('_', ' ', $column));
 
@@ -137,7 +135,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         }
 
 		foreach ($this->getColumns() as $values) {
-			$type = "text";
+			$type = "text"; 
             // if (Str::endsWith(($values->Type), ['timestamp', 'date', 'datetime'])) {
                 // $type = "date";
             // }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagor110090\LivewireCrud;;
+namespace Sagor110090\LivewireCrud;
 
 use Sagor110090\LivewireCrud\Commands\LivewireCrudGenerator;
 use Sagor110090\LivewireCrud\Commands\LivewireInstall;

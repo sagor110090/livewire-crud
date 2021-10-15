@@ -22,12 +22,12 @@
     "require-dev": {},
     "autoload": {
         "psr-4": {
-            "sagor110090\\LivewireCrud\\": "src"
+            "Sagor110090\\LivewireCrud\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "sagor110090\\LivewireCrud\\Tests\\": "tests"
+            "Sagor110090\\LivewireCrud\\Tests\\": "tests"
         }
     },
     "scripts": {

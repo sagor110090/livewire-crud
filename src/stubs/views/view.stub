@@ -1,6 +1,6 @@
 @section('title', __('{{modelTitle}}s'))
 <div>
-<div class="col-lg-12 col-md-12 col-12">
+    <div class="col-lg-12 col-md-12 col-12">
         <div>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="mb-2 mb-lg-0">
@@ -12,9 +12,9 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
-                 <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-6">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-6">
         <div class="card rounded-3">
             <div class="card-body">
                 <div class="justify-content-between align-items-center mb-3">
@@ -36,7 +36,7 @@
 							<tr>
 								<td>{{ $loop->iteration }}</td> {{tableBody}}								<td width="90">
 
-                                        <button type="button" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-warning btn-sm"wire:click="edit({{ $row->id }})"><i
+                                        <button type="button" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate" class="btn btn-warning btn-sm"wire:click="edit({{ $row->id }})"><i
                                             class="fa fa-edit"></i></button>
                                             <button class="btn btn-danger btn-sm"
                                             onclick="confirm('Confirm Delete {{modelTitle}} id {{ $row->id }}? \nDeleted {{modelTitle}}s cannot be recovered!')||event.stopImmediatePropagation()"

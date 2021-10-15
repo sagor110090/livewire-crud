@@ -12,7 +12,7 @@ class {{modelName}}s extends Component
 
 	protected $paginationTheme = 'bootstrap';
     public $selected_id, $keyWord, {{updatefield}};
-    public $updateMode = false;
+
 
     public function render()
     {
@@ -22,14 +22,10 @@ class {{modelName}}s extends Component
 						->paginate(10),
         ]);
     }
-	
-    public function cancel()
-    {
-        $this->resetInput();
-        $this->updateMode = false;
-    }
-	
-    private function resetInput()
+
+
+
+    public function resetInput()
     {		{{resetfields}}
     }
 
@@ -40,7 +36,7 @@ class {{modelName}}s extends Component
 
         {{modelName}}::create([ {{addfields}}
         ]);
-        
+
         $this->resetInput();
 		$this->emit('closeModal');
 		session()->flash('message', '{{modelName}} Successfully created.');
@@ -51,8 +47,6 @@ class {{modelName}}s extends Component
         $record = {{modelName}}::findOrFail($id);
 
         $this->selected_id = $id; {{editfields}}
-		
-        $this->updateMode = true;
     }
 
     public function update()
@@ -65,8 +59,7 @@ class {{modelName}}s extends Component
             $record->update([ {{addfields}}
             ]);
 
-            $this->resetInput();
-            $this->updateMode = false;
+            $this->resetInput(); 
 			session()->flash('message', '{{modelName}} Successfully updated.');
         }
     }

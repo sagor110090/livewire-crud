@@ -1,6 +1,6 @@
 <?php
 
-namespace Flightsadmin\LivewireCrud;
+namespace Sagor110090\LivewireCrud;
 
 use Illuminate\Support\Facades\Facade;
 

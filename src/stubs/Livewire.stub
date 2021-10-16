@@ -10,8 +10,13 @@ class {{modelName}}s extends Component
 {
     use WithPagination;
 
+     protected $listeners = [
+        'confirmed',
+        'cancelled',
+    ];
+
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, {{updatefield}};
+    public $selected_id, $keyWord,$deleteId, {{updatefield}};
 
     public function render()
     {
@@ -38,16 +43,7 @@ class {{modelName}}s extends Component
 
         $this->resetInput();
 		$this->emit('closeModal');
-		 $this->alert('success', 'Post Successfully created.', [
-            'position' =>  'top-end',
-            'timer' =>  3000,
-            'toast' =>  true,
-            'text' =>  '',
-            'confirmButtonText' =>  'Ok',
-            'cancelButtonText' =>  'Cancel',
-            'showCancelButton' =>  false,
-            'showConfirmButton' =>  false,
-      ]);
+		 $this->alert('success', '{{modelName}} Successfully created.');
     }
 
     public function edit($id)
@@ -68,25 +64,42 @@ class {{modelName}}s extends Component
             $record->update([ {{addfields}}
             ]);
 
-            $this->resetInput(); 
-			$this->alert('success', 'Post Successfully updated.', [
-                'position' =>  'top-end',
-                'timer' =>  3000,
-                'toast' =>  true,
-                'text' =>  '',
-                'confirmButtonText' =>  'Ok',
-                'cancelButtonText' =>  'Cancel',
-                'showCancelButton' =>  false,
-                'showConfirmButton' =>  false,
-          ]);
+            $this->resetInput();
+			$this->alert('success', '{{modelName}} Successfully updated.');
         }
     }
 
-    public function destroy($id)
+     public function triggerConfirm($id)
     {
-        if ($id) {
+        $this->datetId = $id;
+        $this->confirm('Do you want to delete?', [
+            'toast' => false,
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Cancel',
+            'onConfirmed' => 'confirmed',
+            'onCancelled' => 'cancelled',
+        ]);
+    }
+
+    public function confirmed()
+    {
+        $this->destroy();
+        $this->alert( 'success', 'deleted successfully.');
+    }
+
+    public function cancelled()
+    {
+        $this->alert('info', 'Understood');
+    }
+
+    public function destroy()
+    {
+        if ($this->datetId) {
             $record = {{modelName}}::where('id', $id);
             $record->delete();
         }
     }
+
+
 }

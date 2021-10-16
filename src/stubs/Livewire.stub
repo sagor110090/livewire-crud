@@ -96,7 +96,7 @@ class {{modelName}}s extends Component
     public function destroy()
     {
         if ($this->datetId) {
-            $record = {{modelName}}::where('id', $id);
+            $record = {{modelName}}::where('id', $this->datetId);
             $record->delete();
         }
     }

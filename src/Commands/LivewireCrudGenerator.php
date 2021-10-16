@@ -59,7 +59,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $layoutFile = 'resources/views/layouts/parts/sidebar.blade.php';
         $layoutContents = $this->filesystem->get($layoutFile);
         $navItemStub = "\t\t\t\t\t\t<li class=\"nav-item\">
-                            <a href=\"{{ url('/".$this->getNameInput()."') }}\" class=\"nav-link\"><i class=\"fab fa-list text-info\"></i> ". ucfirst($this->getNameInput()) ."</a>
+                            <a href=\"{{ url('/admin/".$this->getNameInput()."') }}\" class=\"nav-link\"><i data-feather=\"sidebar\" class=\"nav-icon icon-xs me-2\"></i> ". ucfirst($this->getNameInput()) ."</a>
                         </li>";
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';
 

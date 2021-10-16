@@ -46,7 +46,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $this->argument = $this->getNameInput();
         $routeFile = base_path('routes/web.php');
         $routeContents = $this->filesystem->get($routeFile);
-        $routeItemStub = "\tRoute::view('" . 	$this->getNameInput() . "', 'livewire." . $this->getNameInput() . ".index')->middleware('auth');";
+        $routeItemStub = "\tRoute::view('/admin/" . 	$this->getNameInput() . "', 'livewire." . $this->getNameInput() . ".index')->middleware('auth');";
 		$routeItemHook = '//Route Hooks - Do not delete//';
 
         if (!Str::contains($routeContents, $routeItemStub)) {

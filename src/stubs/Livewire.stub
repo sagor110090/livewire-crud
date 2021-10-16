@@ -85,7 +85,7 @@ class {{modelName}}s extends Component
     public function confirmed()
     {
         $this->destroy();
-        $this->alert( 'success', 'deleted successfully.');
+        $this->alert( 'success', 'Deleted successfully.');
     }
 
     public function cancelled()

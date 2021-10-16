@@ -274,7 +274,7 @@ abstract class LivewireGeneratorCommand extends Command
             '{{title}}' => $title,
             '{{column}}' => $column,
         ]);
- 
+
 
         $unwanted = $this->unwantedColumns;
 

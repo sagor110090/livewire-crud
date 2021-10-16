@@ -18,12 +18,12 @@
         <div class="card rounded-3">
             <div class="card-body">
                 <div class="justify-content-between align-items-center mb-3">
-                    @include('livewire.posts.create')
-                    @include('livewire.posts.update')
+                    @include('livewire.{{modelTitle}}.create')
+                    @include('livewire.{{modelTitle}}.update')
 				<div class="table-responsive">
                  <div class="mb-4">
                             <input wire:model='keyWord' type="text" class="form-control" name="search" id="search"
-                                placeholder="Search Posts">
+                                placeholder="Search {{modelTitle}}s">
                         </div>
 					<table class="table table-bordered table-sm">
 						<thead class="thead">

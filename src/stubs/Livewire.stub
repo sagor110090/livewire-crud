@@ -21,10 +21,10 @@ class {{modelName}}s extends Component
     public function render()
     {
 		$keyWord = '%'.$this->keyWord .'%';
-        return view('livewire.{{modelNamePluralLowerCase}}.view', [
+        return view('livewire.{{modelNamePluralLowerCase}}.index', [
             '{{modelNamePluralLowerCase}}' => {{modelName}}::latest(){{search}}
 						->paginate(10),
-        ]);
+        ])->extends('layouts.app');
     }
 
 
@@ -47,6 +47,13 @@ class {{modelName}}s extends Component
     }
 
     public function edit($id)
+    {
+        $record = {{modelName}}::findOrFail($id);
+
+        $this->selected_id = $id; {{editfields}}
+
+    }
+    public function show($id)
     {
         $record = {{modelName}}::findOrFail($id);
 

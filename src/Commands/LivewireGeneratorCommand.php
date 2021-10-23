@@ -307,6 +307,17 @@ abstract class LivewireGeneratorCommand extends Command
         );
 
     }
+    protected function getFieldForShow($title, $column, $type = null)
+    {
+        $replace = array_merge($this->buildReplacements(), [
+            '{{title}}' => $title,
+            '{{column}}' => $column,
+        ]); 
+        return str_replace(
+            array_keys($replace), array_values($replace), $this->getStub("views/{$type}")
+        );
+
+    }
 
     /**
      * @param $title

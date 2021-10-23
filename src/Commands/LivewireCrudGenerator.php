@@ -125,12 +125,15 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $tableBody = "\n";
         $viewRows = "\n";
         $form = "\n";
+        $show = "\n";
         $type = null;
         foreach ($this->getFilteredColumns() as $column) {
             $title = Str::title(str_replace('_', ' ', $column));
 
             $tableHead .= "\t\t\t\t". $this->getHead($title);
             $tableBody .= "\t\t\t\t". $this->getBody($column);
+            $show .= $this->getFieldForShow($title, $column, 'show-field');
+			$show .= "\n";
             $form .= $this->getField($title, $column, 'form-field');
 			$form .= "\n";
         }
@@ -159,6 +162,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
             '{{tableBody}}' => $tableBody,
             '{{viewRows}}' => $viewRows,
             '{{form}}' => $form,
+            '{{show}}' => $show,
             '{{type}}' => $type,
         ]);
 
@@ -171,7 +175,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 
             $this->write($this->_getViewPath($view), $viewTemplate);
         }
-
+// dd($show);
         return $this;
     }
 

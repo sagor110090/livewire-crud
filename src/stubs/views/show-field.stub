@@ -1,0 +1,4 @@
+            <div class="form-group mt-2 mb-2 border border-secondary rounded-1 p-2">
+                <label for="{{column}}">{{title}}:-</label>
+                <div>{{${{column}}}}</div>
+            </div>

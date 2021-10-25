@@ -20,6 +20,8 @@ class {{modelName}}s extends Component
 
     public function render()
     {
+        $this->authorize('{{modelRoute}}-list');
+
 		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.{{modelNamePluralLowerCase}}.index', [
             '{{modelNamePluralLowerCase}}' => {{modelName}}::latest(){{search}}
@@ -35,6 +37,8 @@ class {{modelName}}s extends Component
 
     public function store()
     {
+        $this->authorize('{{modelRoute}}-create');
+
         $this->validate([{{rules}}
         ]);
 
@@ -63,6 +67,8 @@ class {{modelName}}s extends Component
 
     public function update()
     {
+        $this->authorize('{{modelRoute}}-edit');
+
         $this->validate([{{rules}}
         ]);
 
@@ -102,6 +108,8 @@ class {{modelName}}s extends Component
 
     public function destroy()
     {
+        $this->authorize('{{modelRoute}}-delete');
+
         if ($this->datetId) {
             $record = {{modelName}}::where('id', $this->datetId);
             $record->delete();

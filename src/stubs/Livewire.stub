@@ -5,10 +5,13 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\{{modelName}};
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 
 class {{modelName}}s extends Component
 {
     use WithPagination;
+     use AuthorizesRequests;
 
      protected $listeners = [
         'confirmed',

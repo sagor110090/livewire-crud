@@ -10,7 +10,7 @@
                 @can('{{modelNameLowerCase}}-create')
                     <button type="button" href="#" data-bs-toggle="modal" wire:click.prevent="resetInput()"  data-bs-target="#staticBackdrop"
                         class="btn btn-white"><i class="fa fa-plus"></i> Create New {{modelTitle}}s</button>
-                @endcon
+                @endcan
                 </div>
             </div>
         </div>
@@ -47,14 +47,14 @@
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate" class="btn btn-success btn-sm"wire:click="edit({{ $row->id }})"><i
                                             class="fa fa-edit"></i></button>
 
-                                        @endcon
+                                        @endcan
 
                                         @can('{{modelNameLowerCase}}-delete')
 
                                             <button class="btn btn-danger btn-sm"
                                             wire:click="triggerConfirm({{ $row->id }})"><i
                                                 class="fa fa-trash"></i> </button>
-                                        @endcon
+                                        @endcan
 
 
 								</td>

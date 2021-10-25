@@ -23,6 +23,9 @@
                     @include('livewire.{{modelRoute}}.create')
                     @include('livewire.{{modelRoute}}.update')
                     @include('livewire.{{modelRoute}}.view')
+                    <button class="btn btn-danger btn-sm mb-2" {{ count($checked) == 0 ? 'disabled' : '' }}
+                        wire:click='bulkDeleteTriggerConfirm()'> <i class="fa fa-trash" aria-hidden="true"></i> Bulk delete({{ count($checked) }})
+                    </button>
 				<div class="table-responsive">
                  <div class="mb-4">
                             <input wire:model='keyWord' type="text" class="form-control" name="search" id="search"
@@ -31,12 +34,15 @@
 					<table class="table table-bordered table-sm">
 						<thead class="thead">
 							<tr>
+                            <td><input type="checkbox" value="1" wire:model="checkedAll"></td>
 								<td>#</td> {{tableHeader}}								<td>ACTIONS</td>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach(${{modelNamePluralLowerCase}} as $row)
 							<tr>
+                            <td><input type="checkbox" value="{{ $row->id }}" wire:model="checked">
+                                        </td>
 								<td>{{ $loop->iteration }}</td> {{tableBody}}								<td width="200">
 
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropShow" class="btn btn-warning btn-sm"wire:click="show({{ $row->id }})"><i

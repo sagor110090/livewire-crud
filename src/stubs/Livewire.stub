@@ -16,10 +16,12 @@ class {{modelName}}s extends Component
      protected $listeners = [
         'confirmed',
         'cancelled',
+        'bulkDelete'
     ];
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord,$deleteId, {{updatefield}};
+    public $selected_id, $keyWord,$deleteId,$checkedAll, {{updatefield}};
+    public $checked = [];
 
     public function render()
     {
@@ -116,6 +118,34 @@ class {{modelName}}s extends Component
         if ($this->datetId) {
             $record = {{modelName}}::where('id', $this->datetId);
             $record->delete();
+        }
+    }
+
+    public function bulkDeleteTriggerConfirm()
+    {
+        $this->confirm('Do you want to delete?', [
+            'toast' => false,
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Cancel',
+            'onConfirmed' => 'bulkDelete',
+            'onCancelled' => 'cancelled',
+        ]);
+    }
+
+    public function bulkDelete()
+    {
+        {{modelName}}::whereKey($this->checked)->delete();
+        $this->checked = [];
+        $this->alert( 'success', 'Deleted successfully.');
+    }
+
+    public function updatedCheckedAll($value)
+    {
+        if ($value) {
+            $this->checked = {{modelName}}::pluck('id');
+        }else{
+            $this->checked = [];
         }
     }
 

@@ -46,7 +46,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $this->argument = $this->getNameInput();
         $routeFile = base_path('routes/web.php');
         $routeContents = $this->filesystem->get($routeFile);
-        $routeItemStub = "\tRoute::get('/admin/" . 	$this->getNameInput() . "', App\\Http\\Livewire\\" . $this->name . "s::class)->middleware('auth');";
+        $routeItemStub = "\tRoute::get('/admin/" . 	Str::kebab(Str::plural($this->name)) . "', App\\Http\\Livewire\\" . $this->name . "s::class)->middleware('auth');";
         // $routeItemStub = "\tRoute::view('/admin/" . 	$this->getNameInput() . "', 'livewire." . $this->getNameInput() . ".index')->middleware('auth');";
 		$routeItemHook = '//Route Hooks - Do not delete//';
 
@@ -60,7 +60,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $layoutFile = 'resources/views/layouts/parts/sidebar.blade.php';
         $layoutContents = $this->filesystem->get($layoutFile);
         $navItemStub = "\t\t\t\t\t\t@can('".Str::camel($this->name)."-list')<li class=\"nav-item\">
-                            <a href=\"{{ url('/admin/".$this->getNameInput()."') }}\" class=\"nav-link {{request()->is('admin/".$this->getNameInput()."') ? 'active' : ''}}\"><i data-feather=\"sidebar\" class=\"nav-icon icon-xs me-2\"></i> ". Str::title(Str::snake(Str::plural($this->name), ' ')) ."</a>
+                            <a href=\"{{ url('/admin/".Str::kebab(Str::plural($this->name))."') }}\" class=\"nav-link {{request()->is('admin/".Str::kebab(Str::plural($this->name))."') ? 'active' : ''}}\"><i data-feather=\"sidebar\" class=\"nav-icon icon-xs me-2\"></i> {{__('". Str::title(Str::snake(Str::plural($this->name), ' ')) ."')}}</a>
                         </li>@endcan";
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';
 

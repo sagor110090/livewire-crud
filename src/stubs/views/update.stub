@@ -13,7 +13,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
-                <button type="button" wire:click.prevent="update()" data-bs-dismiss="modal" class="btn btn-primary close-modal">{{__('Update')}}</button>
+                <button type="button" wire:click.prevent="update()" data-bs-dismiss="modal" class="btn bg-background close-modal text-white">{{__('Update')}}</button>
             </div>
         </div>
     </div>

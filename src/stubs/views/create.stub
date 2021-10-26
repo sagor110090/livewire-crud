@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create New {{modelTitle}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{__('Create New {{modelTitle}}')}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
            <div class="modal-body">
@@ -12,8 +12,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
+                <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">{{__('Save')}}</button>
             </div>
         </div>
     </div>

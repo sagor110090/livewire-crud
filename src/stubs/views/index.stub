@@ -1,15 +1,15 @@
-@section('title', __('{{modelTitle}}s'))
+@section('title', __('{{modelTitlePlural}}'))
 <div>
     <div class="col-lg-12 col-md-12 col-12">
         <div>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="mb-2 mb-lg-0">
-                    <h3 class="mb-0 fw-bold text-white">{{modelTitle}} Listing</h3>
+                    <h3 class="mb-0 fw-bold text-white">{{__('{{modelTitlePlural}} Listing')}}</h3>
                 </div>
                 <div>
                 @can('{{modelNameLowerCase}}-create')
-                    <button type="button" href="#" data-bs-toggle="modal" wire:click.prevent="resetInput()"  data-bs-target="#{{modelNameLowerCase}}CreateModal"
-                        class="btn btn-white"><i class="fa fa-plus"></i> Create New {{modelTitle}}s</button>
+                    <button type="button"  data-bs-toggle="modal" wire:click.prevent="resetInput()"  data-bs-target="#{{modelNameLowerCase}}CreateModal"
+                        class="btn btn-white"><i class="fa fa-plus"></i> {{__('Create New {{modelTitlePlural}}')}}</button>
                 @endcan
                 </div>
             </div>
@@ -26,14 +26,14 @@
 
                     @can('{{modelNameLowerCase}}-delete')
                     <button class="btn btn-danger btn-sm mb-2" {{ count($checked) == 0 ? 'disabled' : '' }}
-                        wire:click='bulkDeleteTriggerConfirm()'> <i class="fa fa-trash" aria-hidden="true"></i> Bulk delete({{ count($checked) }})
+                        wire:click='bulkDeleteTriggerConfirm()'> <i class="fa fa-trash" aria-hidden="true"></i> {{__('Bulk delete')}}({{ count($checked) }})
                     </button>
                     @endcan
 
 				<div class="table-responsive">
                  <div class="mb-4">
                             <input wire:model='keyWord' type="text" class="form-control" name="search" id="search"
-                                placeholder="Search {{modelTitle}}s">
+                                placeholder="{{__('Search {{modelTitlePlural}}')}}">
                         </div>
 					<table class="table table-bordered table-sm">
 						<thead class="thead">
@@ -41,9 +41,9 @@
                             @can('{{modelNameLowerCase}}-delete')
 
                             <td><input type="checkbox" value="1" wire:model="checkedAll"></td>
-                            
+
                             @endcan
-								<td>#</td> {{tableHeader}}								<td>ACTIONS</td>
+								<td>#</td> {{tableHeader}}								<td>{{__('ACTIONS')}}</td>
 							</tr>
 						</thead>
 						<tbody>

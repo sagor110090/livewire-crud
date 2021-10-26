@@ -234,9 +234,10 @@ abstract class LivewireGeneratorCommand extends Command
      */
     protected function _getViewPath($view)
     {
-        $name = Str::kebab($this->name);
+        // $name = Str::kebab($this->name);
+        $name = $this->options['route'] ?? Str::kebab(Str::plural($this->name));
 
-        return $this->makeDirectory(resource_path("/views/livewire/{$name}s/{$view}.blade.php"));
+        return $this->makeDirectory(resource_path("/views/livewire/{$name}/{$view}.blade.php"));
     }
 
     /**
@@ -249,13 +250,15 @@ abstract class LivewireGeneratorCommand extends Command
             '{{layout}}' => $this->layout,
             '{{modelName}}' => $this->name,
             '{{modelTitle}}' => Str::title(Str::snake($this->name, ' ')),
+            '{{modelTitlePlural}}' => Str::title(Str::snake(Str::plural($this->name), ' ')),
             '{{modelNamespace}}' => $this->modelNamespace,
             '{{controllerNamespace}}' => $this->controllerNamespace,
             '{{modelNamePluralLowerCase}}' => Str::camel(Str::plural($this->name)),
             '{{modelNamePluralUpperCase}}' => ucfirst(Str::plural($this->name)),
             '{{modelNameLowerCase}}' => Str::camel($this->name),
             '{{modelRoute}}' => $this->options['route'] ?? Str::kebab(Str::plural($this->name)),
-            '{{modelView}}' => Str::kebab($this->name),
+            '{{modelView}}' => $this->options['route'] ?? Str::kebab(Str::plural($this->name)),
+            '{{tableName}}' => $this->table,
         ];
     }
 
@@ -312,7 +315,7 @@ abstract class LivewireGeneratorCommand extends Command
         $replace = array_merge($this->buildReplacements(), [
             '{{title}}' => $title,
             '{{column}}' => $column,
-        ]); 
+        ]);
         return str_replace(
             array_keys($replace), array_values($replace), $this->getStub("views/{$type}")
         );
@@ -332,7 +335,7 @@ abstract class LivewireGeneratorCommand extends Command
         return str_replace(
             array_keys($replace),
             array_values($replace),
-            $this->_getSpace(4) . '<th>{{title}}</th>' . "\n"
+            $this->_getSpace(4) . "<th>{{__('{{title}}')}}</th>" . "\n"
         );
     }
 

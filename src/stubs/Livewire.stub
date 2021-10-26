@@ -28,7 +28,7 @@ class {{modelName}}s extends Component
         $this->authorize('{{modelNameLowerCase}}-list');
 
 		$keyWord = '%'.$this->keyWord .'%';
-        return view('livewire.{{modelNamePluralLowerCase}}.index', [
+        return view('livewire.{{modelView}}.index', [
             '{{modelNamePluralLowerCase}}' => {{modelName}}::latest(){{search}}
 						->paginate(10),
         ])->extends('layouts.app');
@@ -52,7 +52,7 @@ class {{modelName}}s extends Component
 
         $this->resetInput();
 		$this->emit('closeModal');
-		 $this->alert('success', '{{modelName}} Successfully created.');
+		$this->alert('success', '{{modelTitle}} Successfully created.');
     }
 
     public function edit($id)
@@ -83,7 +83,7 @@ class {{modelName}}s extends Component
             ]);
 
             $this->resetInput();
-			$this->alert('success', '{{modelName}} Successfully updated.');
+			$this->alert('success', '{{modelTitle}} Successfully updated.');
         }
     }
 

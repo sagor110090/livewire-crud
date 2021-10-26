@@ -59,7 +59,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 		//Updating Nav Bar
         $layoutFile = 'resources/views/layouts/parts/sidebar.blade.php';
         $layoutContents = $this->filesystem->get($layoutFile);
-        $navItemStub = "\t\t\t\t\t\t@can('".Str::camel($this->name)."-create')<li class=\"nav-item\">
+        $navItemStub = "\t\t\t\t\t\t@can('".Str::camel($this->name)."-list')<li class=\"nav-item\">
                             <a href=\"{{ url('/admin/".$this->getNameInput()."') }}\" class=\"nav-link {{request()->is('admin/".$this->getNameInput()."') ? 'active' : ''}}\"><i data-feather=\"sidebar\" class=\"nav-icon icon-xs me-2\"></i> ". ucfirst($this->getNameInput()) ."</a>
                         </li>@endcan";
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';

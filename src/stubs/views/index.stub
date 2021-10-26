@@ -29,7 +29,7 @@
                         wire:click='bulkDeleteTriggerConfirm()'> <i class="fa fa-trash" aria-hidden="true"></i> Bulk delete({{ count($checked) }})
                     </button>
                     @endcan
-                    
+
 				<div class="table-responsive">
                  <div class="mb-4">
                             <input wire:model='keyWord' type="text" class="form-control" name="search" id="search"
@@ -38,15 +38,22 @@
 					<table class="table table-bordered table-sm">
 						<thead class="thead">
 							<tr>
+                            @can('{{modelNameLowerCase}}-delete')
+
                             <td><input type="checkbox" value="1" wire:model="checkedAll"></td>
+                            
+                            @endcan
 								<td>#</td> {{tableHeader}}								<td>ACTIONS</td>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach(${{modelNamePluralLowerCase}} as $row)
 							<tr>
+                            @can('{{modelNameLowerCase}}-delete')
+
                             <td><input type="checkbox" value="{{ $row->id }}" wire:model="checked">
                                         </td>
+                                @endcan
 								<td>{{ $loop->iteration }}</td> {{tableBody}}								<td width="200">
 
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#{{modelNameLowerCase}}ShowModal" class="btn btn-warning btn-sm"wire:click="show({{ $row->id }})"><i

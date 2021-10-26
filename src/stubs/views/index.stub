@@ -8,7 +8,7 @@
                 </div>
                 <div>
                 @can('{{modelNameLowerCase}}-create')
-                    <button type="button" href="#" data-bs-toggle="modal" wire:click.prevent="resetInput()"  data-bs-target="#staticBackdrop"
+                    <button type="button" href="#" data-bs-toggle="modal" wire:click.prevent="resetInput()"  data-bs-target="#{{modelNameLowerCase}}CreateModal"
                         class="btn btn-white"><i class="fa fa-plus"></i> Create New {{modelTitle}}s</button>
                 @endcan
                 </div>
@@ -23,9 +23,13 @@
                     @include('livewire.{{modelRoute}}.create')
                     @include('livewire.{{modelRoute}}.update')
                     @include('livewire.{{modelRoute}}.view')
+
+                    @can('{{modelNameLowerCase}}-delete')
                     <button class="btn btn-danger btn-sm mb-2" {{ count($checked) == 0 ? 'disabled' : '' }}
                         wire:click='bulkDeleteTriggerConfirm()'> <i class="fa fa-trash" aria-hidden="true"></i> Bulk delete({{ count($checked) }})
                     </button>
+                    @endcan
+                    
 				<div class="table-responsive">
                  <div class="mb-4">
                             <input wire:model='keyWord' type="text" class="form-control" name="search" id="search"
@@ -45,12 +49,12 @@
                                         </td>
 								<td>{{ $loop->iteration }}</td> {{tableBody}}								<td width="200">
 
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropShow" class="btn btn-warning btn-sm"wire:click="show({{ $row->id }})"><i
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#{{modelNameLowerCase}}ShowModal" class="btn btn-warning btn-sm"wire:click="show({{ $row->id }})"><i
                                             class="fa fa-eye"></i></button>
 
-                                        @can('{{modelNameLowerCase}}-create')
+                                        @can('{{modelNameLowerCase}}-edit')
 
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate" class="btn btn-success btn-sm"wire:click="edit({{ $row->id }})"><i
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#{{modelNameLowerCase}}UpdateModal" class="btn btn-success btn-sm"wire:click="edit({{ $row->id }})"><i
                                             class="fa fa-edit"></i></button>
 
                                         @endcan

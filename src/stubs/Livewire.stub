@@ -135,6 +135,8 @@ class {{modelName}}s extends Component
 
     public function bulkDelete()
     {
+        $this->authorize('{{modelNameLowerCase}}-delete');
+
         {{modelName}}::whereKey($this->checked)->delete();
         $this->checked = [];
         $this->alert( 'success', 'Deleted successfully.');

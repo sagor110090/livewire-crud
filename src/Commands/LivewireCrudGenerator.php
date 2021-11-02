@@ -60,7 +60,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $layoutFile = 'resources/views/layouts/parts/sidebar.blade.php';
         $layoutContents = $this->filesystem->get($layoutFile);
         $navItemStub = "\t\t\t\t\t\t@can('".Str::camel($this->name)."-list')<li class=\"nav-item\">
-                            <a href=\"{{ url('".Str::kebab(Str::plural($this->name))."') }}\" class=\"nav-link {{request()->is('".Str::kebab(Str::plural($this->name))."') ? 'active' : ''}}\"><i data-feather=\"sidebar\" class=\"nav-icon icon-xs me-2\"></i> {{__('". Str::title(Str::snake(Str::plural($this->name), ' ')) ."')}}</a>
+                            <a href=\"{{ url('".Str::kebab(Str::plural($this->name))."') }}\" class=\"nav-link {{request()->is('".Str::kebab(Str::plural($this->name))."') ? 'active' : ''}}\"><i class=\"nav-icon icon-xs me-2 fa fa-list\"></i> {{__('". Str::title(Str::snake(Str::plural($this->name), ' ')) ."')}}</a>
                         </li>@endcan";
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';
 

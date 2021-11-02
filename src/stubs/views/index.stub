@@ -29,12 +29,34 @@
                         wire:click='bulkDeleteTriggerConfirm()'> <i class="fa fa-trash" aria-hidden="true"></i> {{__('Bulk delete')}}({{ count($checked) }})
                     </button>
                     @endcan
-
-				<div class="table-responsive">
-                 <div class="mb-4">
-                            <input wire:model='keyWord' type="text" class="form-control" name="search" id="search"
-                                placeholder="{{__('Search {{modelTitlePlural}}')}}">
+                    <div class="col-md-12">
+                        <div class="row mb-2 mt-2 justify-content-md-between">
+                            <div class="col-md-2 pb-sm-3">
+                                <div class="row g-3 align-items-center border-1 ">
+                                    <div class="col-auto">
+                                        <label for="" class="col-form-label">{{__('Per Page')}}</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <select wire:model='perPage' class="form-select">
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="50">50</option>
+                                            <option value="50">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text border-right-0 border"><i class="fa fa-search"></i></span>
+                                    <input wire:model='keyWord' type="text" class="form-control border-left-0 border" name="search" id="search"
+                                    placeholder="{{__('Search {{modelTitlePlural}}')}}">
+                                </div>
+                            </div>
                         </div>
+                    </div>
+				<div class="table-responsive">
 					<table class="table table-bordered table-sm">
 						<thead class="thead">
 							<tr>

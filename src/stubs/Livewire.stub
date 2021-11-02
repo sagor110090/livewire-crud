@@ -22,6 +22,8 @@ class {{modelName}}s extends Component
 	protected $paginationTheme = 'bootstrap';
     public $selected_id, $keyWord,$deleteId,$checkedAll, {{updatefield}};
     public $checked = [];
+    public $perPage = 10;
+
 
     public function render()
     {
@@ -30,11 +32,14 @@ class {{modelName}}s extends Component
 		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.{{modelView}}.index', [
             '{{modelNamePluralLowerCase}}' => {{modelName}}::latest(){{search}}
-						->paginate(10),
+						->paginate($this->perPage),
         ])->extends('layouts.app');
     }
 
-
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
 
     public function resetInput()
     {		{{resetfields}}

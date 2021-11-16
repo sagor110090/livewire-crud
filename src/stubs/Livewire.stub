@@ -41,7 +41,7 @@ class {{modelName}}s extends Component
         $this->resetPage();
     }
 
-    public function resetInput()
+    prevent function resetInput()
     {		{{resetfields}}
     }
 
@@ -62,8 +62,8 @@ class {{modelName}}s extends Component
 
     public function edit($id)
     {
+        $this->resetInput();
         $record = {{modelName}}::findOrFail($id);
-
         $this->selected_id = $id; {{editfields}}
 
     }
@@ -120,8 +120,8 @@ class {{modelName}}s extends Component
     {
         $this->authorize('{{modelNameLowerCase}}-delete');
 
-        if ($this->datetId) {
-            $record = {{modelName}}::where('id', $this->datetId);
+        if ($this->deleteId) {
+            $record = {{modelName}}::where('id', $this->deleteId);
             $record->delete();
         }
     }

@@ -41,7 +41,7 @@ class {{modelName}}s extends Component
         $this->resetPage();
     }
 
-    prevent function resetInput()
+    public function resetInput()
     {		{{resetfields}}
     }
 

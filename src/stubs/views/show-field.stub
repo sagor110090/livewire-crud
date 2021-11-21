@@ -1,4 +1,6 @@
-            <div class="form-group mt-2 mb-2 border border-secondary rounded-1 p-2">
-                <label for="{{column}}">{{__('{{title}}')}}:-</label>
-                <div>{{${{column}}}}</div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text  border-0">{{__('{{title}}')}}:</span>
+                <div class="form-control  border-0">{{${{column}}}}</div>
             </div>
+             

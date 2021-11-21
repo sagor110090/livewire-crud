@@ -21,22 +21,7 @@
 
 <!--Nav Bar Hooks - Do not delete!!-->
 
-            <li class="nav-item">
-                <a class="nav-link " href="./pages/layout.html">
-                    <i data-feather="sidebar" class="nav-icon icon-xs me-2">
-                    </i>
-                    Layouts
-                </a>
-            </li>
 
-
-            <!-- Nav item -->
-            <li class="nav-item">
-                <a class="nav-link has-arrow " href="./docs/index.html">
-                    <i data-feather="clipboard" class="nav-icon icon-xs me-2">
-                    </i> Docs
-                </a>
-            </li>
 
 
 

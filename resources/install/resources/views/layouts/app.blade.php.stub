@@ -4,74 +4,63 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    {{-- <meta name="turbolinks-visit-control" content="reload"> --}}
+    <meta name="turbolinks-cache-control" content="no-cache">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>@hasSection('title') @yield('title') | @endif {{ config('app.name', 'Laravel') }}
-</title>
+    <title>@hasSection('title') @yield('title') | @endif {{ websiteName() }}
+    </title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ Storage::url(websiteFavicon()) }}" />
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @livewireStyles
+    @stack('css')
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-
-<link rel="stylesheet" href="{{ asset('backend') }}/libs/prismjs/themes/prism.css">
-<link rel="stylesheet" href="{{ asset('backend') }}/libs/prismjs/plugins/line-numbers/prism-line-numbers.css">
-<link rel="stylesheet" href="{{ asset('backend') }}/libs/prismjs/plugins/toolbar/prism-toolbar.css">
-<link rel="stylesheet" href="{{ asset('backend') }}/libs/bootstrap-icons/font/bootstrap-icons.css">
-<link rel="stylesheet" href="{{ asset('backend') }}/libs/dropzone/dist/dropzone.css">
-<link href="{{ asset('backend') }}/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+    <script src="{{ asset('js/app.js') }}"></script>
 
 
 
-
-
-
-<!-- Theme CSS -->
-<link rel="stylesheet" href="{{ asset('backend') }}/css/theme.min.css">
-
-
-@livewireStyles
-</head>
 
 <body>
-<div id="db-wrapper">
-    <!-- navbar vertical -->
-    <!-- Sidebar -->
-    @include('layouts.parts.sidebar')
-    <!-- Page content -->
-    <div id="page-content">
-        @include('layouts.parts.nav')
-        <!-- Container fluid -->
-        <div class="bg-primary pt-10 pb-21"></div>
-        <div class="container-fluid mt-n22 px-6">
-            <div class="row">
-                @yield('content')
+
+
+
+    <div id="db-wrapper">
+        @if (request()->is('login'))
+        @yield('content')
+        @else
+        @include('layouts.parts.sidebar')
+        <div id="page-content">
+            @include('layouts.parts.nav')
+            <!-- Container fluid -->
+            <div class="bg-primary pt-10 pb-21"></div>
+            <div class="container-fluid mt-n22 px-6">
+                <div class="row">
+                    {{-- <div id="loader-wrapper" >
+                        <div id="loader"></div>
+
+                        <div class="loader-section section-left"></div>
+                        <div class="loader-section section-right"></div>
+
+                    </div> --}}
+                    <div id="loader-wrapper" class="loader-wrapper">
+                        <div class="loader">
+
+                        </div>
+                    </div>
+                    <div class="content">
+                        @yield('content')
+                    </div>
+                </div>
             </div>
         </div>
+        @endif
     </div>
-</div>
-<script src="{{ asset('backend') }}/libs/jquery/dist/jquery.min.js"></script>
-<script src="{{ asset('backend') }}/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('backend') }}/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="{{ asset('backend') }}/libs/feather-icons/dist/feather.min.js"></script>
-<script src="{{ asset('backend') }}/libs/prismjs/components/prism-core.min.js"></script>
-<script src="{{ asset('backend') }}/libs/prismjs/components/prism-markup.min.js"></script>
-<script src="{{ asset('backend') }}/libs/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
-<script src="{{ asset('backend') }}/libs/apexcharts/dist/apexcharts.min.js"></script>
-<script src="{{ asset('backend') }}/libs/dropzone/dist/min/dropzone.min.js"></script>
-
-
-<!-- clipboard -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+    @include('layouts.parts.script')
 
 
 
-<!-- Theme JS -->
-<script src="{{ asset('backend') }}/js/theme.min.js"></script>
-@livewireScripts
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"> </script>
-<x-livewire-alert::scripts />
 </body>
 
 </html>

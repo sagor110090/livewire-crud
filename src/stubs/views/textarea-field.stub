@@ -1,5 +1,5 @@
-            <div class="form-group">
-                <label for="{{column}}"></label>
+            <div class="form-group mt-3">
+                <label for="{{column}}">{{__('{{title}}')}}</label>
                 <textarea wire:model="{{column}}" placeholder="{{__('{{title}}')}}" id="{{column}}" class="form-control" cols="30" rows="10"></textarea>
                 @error('{{column}}') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>

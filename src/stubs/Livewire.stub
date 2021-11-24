@@ -94,7 +94,7 @@ class {{modelName}}s extends Component
 
      public function triggerConfirm($id)
     {
-        $this->datetId = $id;
+        $this->deleteId = $id;
         $this->confirm('Do you want to delete?', [
             'toast' => false,
             'position' => 'center',

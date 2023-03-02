@@ -19,7 +19,7 @@
         "laravel/ui": "^2|^3",
         "livewire/livewire": "^2",
         "jantinnerezo/livewire-alert": "2.1.8",
-        "realrashid/sweet-alert": "^4.0",
+        "realrashid/sweet-alert": "^6.0",
         "spatie/laravel-permission": "^4.2"
     },
     "require-dev": {},

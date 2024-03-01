@@ -16,9 +16,10 @@
         }
     ],
     "require": {
-        "php": ">=5.6.4|>=7.4",
+        "php": "^8.1.0",
         "laravel/framework": "^10.0",
-        "livewire/livewire": "^3.0"
+        "livewire/livewire": "^3.0",
+        "laravel/breeze": "^1.0"
     },
     "require-dev": {},
     "autoload": {

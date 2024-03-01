@@ -8,14 +8,17 @@
     "homepage": "https://github.com/sagor110090/livewire-crud",
     "license": "MIT",
     "type": "library",
-    "authors": [{
-        "name": "Mehedi Hasan Sagor",
-        "email": "mehedihasansagor.cse@gmail.com",
-        "role": "Developer"
-    }],
+    "authors": [
+        {
+            "name": "Mehedi Hasan Sagor",
+            "email": "mehedihasansagor.cse@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
-      
-
+        "php": ">=5.6.4|>=7.4",
+        "laravel/framework": "^10.0",
+        "livewire/livewire": "^3.0"
     },
     "require-dev": {},
     "autoload": {
@@ -31,7 +34,6 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true

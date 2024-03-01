@@ -20,7 +20,10 @@
         "laravel/framework": "^10.0",
         "livewire/livewire": "^3.0",
         "laravel/breeze": "^1.0",
-        "jantinnerezo/livewire-alert": "^3.0"
+        "jantinnerezo/livewire-alert": "^3.0",
+        "rappasoft/laravel-livewire-tables": "*",
+        "wire-elements/modal": "^2.0",
+        "wireui/wireui": "^1.18"
     },
     "require-dev": {},
     "autoload": {

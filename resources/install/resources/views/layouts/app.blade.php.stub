@@ -1,66 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{-- <meta name="turbolinks-visit-control" content="reload"> --}}
-    <meta name="turbolinks-cache-control" content="no-cache">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <title>@hasSection('title') @yield('title') | @endif {{ websiteName() }}
-    </title>
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ Storage::url(websiteFavicon()) }}" />
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    @livewireStyles
-    @stack('css')
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    <script src="{{ asset('js/app.js') }}"></script>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body>
+        <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-slate-200 font-roboto">
+            @include('layouts.navigation')
 
+            <div class="flex overflow-hidden flex-col flex-1">
+                @include('layouts.header')
 
+                <main class="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200">
+                    <div class="container px-6 py-8 mx-auto">
+                        @if (isset($header))
+                            <h3 class="mb-4 text-3xl font-medium text-gray-700">
+                                {{ $header }}
+                            </h3>
+                        @endif
 
-
-<body>
-
-
-
-    <div id="db-wrapper">
-        @if (request()->is('login'))
-        @yield('content')
-        @else
-        @include('layouts.partials.sidebar')
-        <div id="page-content">
-            @include('layouts.partials.nav')
-            <!-- Container fluid -->
-            <div class="bg-primary pt-10 pb-21"></div>
-            <div class="container-fluid mt-n22 px-6">
-                <div class="row">
-                    {{-- <div id="loader-wrapper" >
-                        <div id="loader"></div>
-
-                        <div class="loader-section section-left"></div>
-                        <div class="loader-section section-right"></div>
-
-                    </div> --}}
-                    <div id="loader-wrapper" class="loader-wrapper">
-                        <div class="loader">
-
-                        </div>
+                        {{ $slot }}
                     </div>
-                    <div class="content">
-                        @yield('content')
-                    </div>
-                </div>
+                </main>
             </div>
         </div>
-        @endif
-    </div>
-    @include('layouts.partials.script')
-
-
-
-</body>
-
+    </body>
 </html>

@@ -36,10 +36,10 @@ class LivewireInstall extends Command
             $this->filesystem->deleteDirectory(app_path('Http/Controllers'));
 
             //publish livewire config
-            $this->call('vendor:publish', [
-                '--provider' => 'Livewire\LivewireServiceProvider',
-                '--tag' => 'config',
-            ]);
+            // $this->call('vendor:publish', [
+            //     '--provider' => 'Livewire\LivewireServiceProvider',
+            //     '--tag' => 'config',
+            // ]);
 
             $routeFile = base_path('routes/web.php');
             $string = file_get_contents($routeFile);

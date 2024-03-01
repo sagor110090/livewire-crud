@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Livewire\{{modelNamePluralUpperCase}};
+
+use App\Models\{{modelName}};
+use Carbon\Carbon;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
+
+class Table extends DataTableComponent
+{
+
+    use LivewireAlert;
+
+    protected $listeners = [
+        'categoryCreated' => '$refresh',
+        'categoryUpdated' => '$refresh',
+        'categoryDeleted' => '$refresh',
+    ];
+
+    protected $model = {{modelName}}::class;
+
+    public function configure(): void
+    {
+        $this->setSearchLazy();
+        $this->setPrimaryKey('id');
+        $this->setDefaultSort('id', 'desc');
+    }
+
+   {{tableColumnsClass}}
+
+
+
+    // edit
+    public function edit($id)
+    {
+        // dispatch('showModal', ['honesty-bar-modal-order-management',{{ $item->id }}])
+        // button click from here
+        $this->dispatch('openModal',  component: 'category.edit-category', arguments: ['id' => $id]);
+    }
+
+    // delete
+    public function delete($id)
+    {
+        $category = {{modelName}}::find($id);
+        $category->delete();
+        $this->dispatch('categoryDeleted');
+    }
+
+    // approve
+    public function approve($id)
+    {
+        $category = {{modelName}}::find($id);
+        $category->update([
+            'is_active' => !$category->is_active,
+        ]);
+        $this->dispatch('categoryUpdated');
+    }
+}

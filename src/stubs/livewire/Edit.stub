@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Livewire\Category;
+
+use App\Models\Category;
+use LivewireUI\Modal\ModalComponent;
+
+class EditCategory extends ModalComponent
+{
+    public $name;
+    public $slug;
+
+    public $is_active;
+    public $category_id;
+
+    public function mount($id)
+    {
+        $category = Category::find($id);
+        $this->name = $category->name;
+        $this->slug = $category->slug;
+        $this->is_active = $category->is_active;
+        $this->category_id = $category->id;
+    }
+
+    public function render()
+    {
+        $categories = Category::whereNotIn('id', [$this->category_id])->get();
+        return view('livewire.category.edit-category', ['categories' => $categories]);
+    }
+
+
+    //updatedName
+    public function updatedName($value)
+    {
+        $this->slug = \Illuminate\Support\Str::slug($value);
+    }
+
+
+    //update
+    public function update()
+    {
+
+        $this->validate([
+            'name' => 'required|unique:categories,name,' . $this->category_id,
+            'slug' => 'required|unique:categories,slug,' . $this->category_id,
+            'is_active' => 'required|boolean',
+        ]);
+
+        $category = Category::find($this->category_id);
+        $category->update([
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'is_active' => $this->is_active,
+        ]);
+
+        $this->closeModalWithEvents(['categoryUpdated']);
+    }
+}

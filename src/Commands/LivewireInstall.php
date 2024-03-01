@@ -41,11 +41,7 @@ class LivewireInstall extends Command
             //     '--tag' => 'config',
             // ]);
 
-            $routeFile = base_path('routes/web.php');
-            $string = file_get_contents($routeFile);
-            if (!str_contains($string, '//Route Hooks - Do not delete//')) {
-                file_put_contents($routeFile, "\n//Route Hooks - Do not delete//", FILE_APPEND);
-            }
+
             $deleteFiles = [
                 'resources/sass',
                 'resources/css',
@@ -86,6 +82,14 @@ class LivewireInstall extends Command
             //     $npm->delete(base_path('tailwind.config.js'));
             // });
             // $this->info('node_modules files Removed');
+
+            $routeFile = base_path('routes/web.php');
+
+            $string = file_get_contents($routeFile);
+            if (!str_contains($string, '//Route Hooks - Do not delete//')) {
+                file_put_contents($routeFile, "\n//Route Hooks - Do not delete//", FILE_APPEND);
+            }
+
             $this->info('');
             $this->warn('All set, run <info>php artisan crud:generate {table-name}</info> to build your CRUD');
         } else $this->warn('Installation Aborted, No file was changed');

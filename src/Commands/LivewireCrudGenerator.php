@@ -46,7 +46,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $this->argument = $this->getNameInput();
         $routeFile = base_path('routes/web.php');
         $routeContents = $this->filesystem->get($routeFile);
-        $routeItemStub = "\tRoute::get('" .     Str::kebab(Str::plural($this->name)) . "', App\\Http\\Livewire\\" . $this->name . "s::class)->middleware('auth');";
+        $routeItemStub = "\tRoute::get('" .     Str::kebab(Str::plural($this->name)) . "', App\\Livewire\\" . $this->name . "s::class)->middleware('auth');";
         // $routeItemStub = "\tRoute::view('" . 	$this->getNameInput() . "', 'livewire." . $this->getNameInput() . ".index')->middleware('auth');";
         $routeItemHook = '//Route Hooks - Do not delete//';
 
@@ -57,11 +57,19 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         }
 
         //Updating Nav Bar
-        $layoutFile = 'resources/views/layouts/partials/sidebar.blade.php';
+        $layoutFile = 'resources/views/layouts/navigation.blade.php';
         $layoutContents = $this->filesystem->get($layoutFile);
-        $navItemStub = "\t\t\t\t\t\t@can('" . Str::camel($this->name) . "-list')<li class=\"nav-item\">
-                            <a href=\"{{ url('" . Str::kebab(Str::plural($this->name)) . "') }}\" class=\"nav-link {{request()->is('" . Str::kebab(Str::plural($this->name)) . "') ? 'active' : ''}}\"><i class=\"nav-icon icon-xs me-2 fa fa-list\"></i> {{__('" . Str::title(Str::snake(Str::plural($this->name), ' ')) . "')}}</a>
-                        </li>@endcan";
+
+        $navItemStub = ' <x-nav-link href="{{ route(\'' . Str::kebab(Str::plural($this->name)) . '.index\') }}" :active="request()->routeIs(\'' . Str::kebab(Str::plural($this->name)) . '.index\')">
+        <x-slot name="icon">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+        </x-slot>
+        {{ __("' . Str::title(Str::snake(Str::plural($this->name), ' ')) . '") }}
+    </x-nav-link>';
+
+
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';
 
         if (!Str::contains($layoutContents, $navItemStub)) {
@@ -86,9 +94,9 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $livewirePath = $this->_getLivewirePath($this->name);
         $factoryPath = $this->_getFactoryPath($this->name);
 
-        if ($this->files->exists($livewirePath) && $this->ask("Livewire Component " . Str::studly(Str::singular($this->table)) . "Component Already exist. Do you want overwrite (y/n)?", 'y') == 'n') {
-            return $this;
-        }
+        // if ($this->files->exists($livewirePath) && $this->ask("Livewire Component " . Str::studly(Str::singular($this->table)) . "Component Already exist. Do you want overwrite (y/n)?", 'y') == 'n') {
+        //     return $this;
+        // }
 
         // Make Replacements in Model / Livewire / Migrations / Factories
         $replace = array_merge($this->buildReplacements(), $this->modelReplacements());
@@ -103,13 +111,23 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
             array_values($replace),
             $this->getStub('Factory')
         );
-        $livewireTemplate = str_replace(
-            array_keys($replace),
-            array_values($replace),
-            $this->getStub('Livewire')
-        );
+
+        //make a directory for the livewire component
+        $this->makeDirectory($livewirePath);
+
+        var_dump($livewirePath);
         $this->warn('Creating: <info>Livewire Component...</info>');
-        $this->write($livewirePath, $livewireTemplate);
+
+        foreach (['Index', 'Table', 'Create', 'Edit'] as $class) {
+
+            $livewireTemplate = str_replace(
+                array_keys($replace),
+                array_values($replace),
+                $this->getStub("Livewire/{$class}")
+            );
+            $this->write($livewirePath . '/' . $class . '.php', $livewireTemplate);
+        }
+
         $this->warn('Creating: <info>Model...</info>');
         $this->write($modelPath, $modelTemplate);
         $this->warn('Creating: <info>Factories, Please edit before running Factory ...</info>');
@@ -173,6 +191,8 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         ]);
 
         $this->buildLayout();
+
+
 
         foreach (['view', 'index', 'create', 'update'] as $view) {
             $viewTemplate = str_replace(

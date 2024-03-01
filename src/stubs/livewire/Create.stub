@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Livewire\{{modelNamePluralUpperCase}};
+
+use LivewireUI\Modal\ModalComponent;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+
+class CreateCategory extends ModalComponent
+{
+
+    use LivewireAlert;
+
+    {{}}
+
+
+    public function render()
+    {
+        return view('livewire.category.create-category',['categories' => $categories]);
+    }
+
+    //updatedName
+    public function updatedName($value)
+    {
+        $this->slug = \Illuminate\Support\Str::slug($value);
+    }
+
+
+    //store
+    public function store()
+    {
+        $this->validate([
+            'name' => 'required|unique:categories,name',
+            'slug' => 'required|unique:categories,slug',
+            'is_active' => 'required|boolean',
+        ]);
+
+        \App\Models\Category::create([
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'is_active' => $this->is_active,
+        ]);
+        $this->alert('success', 'Category Created Successfully');
+        $this->closeModalWithEvents(['categoryCreated']);
+    }
+}

@@ -67,11 +67,11 @@ abstract class LivewireGeneratorCommand extends Command
      * @var string
      */
     protected $controllerNamespace = 'App\Http\Controllers';
-	/**
+    /**
      * Controller Namespace.
      * @var string
      */
-    protected $livewireNamespace = 'App\Http\Livewire';
+    protected $livewireNamespace = 'App\Livewire';
 
     /**
      * Application Layout
@@ -182,20 +182,20 @@ abstract class LivewireGeneratorCommand extends Command
      */
     protected function _getMigrationPath($name)
     {
-        return base_path("database/migrations/". date('Y-m-d_His') ."_create_". Str::lower(Str::plural($name)) ."_table.php");
+        return base_path("database/migrations/" . date('Y-m-d_His') . "_create_" . Str::lower(Str::plural($name)) . "_table.php");
     }
     protected function _getFactoryPath($name)
     {
         return base_path("database/factories/{$name}Factory.php");
     }
 
-	/**
+    /**
      * @param $name
      * @return string
      */
     protected function _getLivewirePath($name)
     {
-        return app_path($this->_getNamespacePath($this->livewireNamespace) . "{$name}s.php");
+        return app_path($this->_getNamespacePath($this->livewireNamespace) . "{$name}s");
     }
 
     /**
@@ -240,6 +240,13 @@ abstract class LivewireGeneratorCommand extends Command
         return $this->makeDirectory(resource_path("/views/livewire/{$name}/{$view}.blade.php"));
     }
 
+    protected function _getLivewirePathForClass($class)
+    {
+        var_dump($class);
+        $name = $this->options['route'] ?? Str::kebab(Str::plural($this->name));
+        return $this->makeDirectory(app_path("Livewire/{$name}/{$class}.php"));
+    }
+
     /**
      * Build the replacement.
      * @return array
@@ -281,34 +288,35 @@ abstract class LivewireGeneratorCommand extends Command
 
         $unwanted = $this->unwantedColumns;
 
-        for ($i=0; $i < sizeof($this->datatypeAndFields); $i++) {
+        for ($i = 0; $i < sizeof($this->datatypeAndFields); $i++) {
             $datatypeAndFields[] = array_filter($this->datatypeAndFields[$i], function ($value) use ($unwanted) {
                 return !in_array($value, $unwanted);
             });
             if (isset($datatypeAndFields[$i]['name'])) {
                 if ($datatypeAndFields[$i]['name'] == $column) {
-                    if ($datatypeAndFields[$i]['type']=='varchar(255)') {
+                    if ($datatypeAndFields[$i]['type'] == 'varchar(255)') {
                         $type = 'form-field';
                     }
-                    if ($datatypeAndFields[$i]['type']=='int(11)') {
+                    if ($datatypeAndFields[$i]['type'] == 'int(11)') {
                         $type = 'number-field';
                     }
-                    if ($datatypeAndFields[$i]['type']=='longtext') {
+                    if ($datatypeAndFields[$i]['type'] == 'longtext') {
                         $type = 'textarea-field';
                     }
-                    if ($datatypeAndFields[$i]['type']=='date') {
+                    if ($datatypeAndFields[$i]['type'] == 'date') {
                         $type = 'date-field';
                     }
-                    if ($datatypeAndFields[$i]['type']=='time') {
+                    if ($datatypeAndFields[$i]['type'] == 'time') {
                         $type = 'time-field';
                     }
                 }
             }
         }
         return str_replace(
-            array_keys($replace), array_values($replace), $this->getStub("views/{$type}")
+            array_keys($replace),
+            array_values($replace),
+            $this->getStub("views/{$type}")
         );
-
     }
     protected function getFieldForShow($title, $column, $type = null)
     {
@@ -317,9 +325,10 @@ abstract class LivewireGeneratorCommand extends Command
             '{{column}}' => $column,
         ]);
         return str_replace(
-            array_keys($replace), array_values($replace), $this->getStub("views/{$type}")
+            array_keys($replace),
+            array_values($replace),
+            $this->getStub("views/{$type}")
         );
-
     }
 
     /**
@@ -393,7 +402,7 @@ abstract class LivewireGeneratorCommand extends Command
     {
         $unwanted = $this->unwantedColumns;
         $columns = [];
-        foreach ($this->getColumns() as $key=>$column) {
+        foreach ($this->getColumns() as $key => $column) {
             $columns[] = $column->Field;
             $type[$key]['type'] = $column->Type;
             $type[$key]['name'] = $column->Field;
@@ -468,14 +477,14 @@ abstract class LivewireGeneratorCommand extends Command
             return implode(', ', $filterColumns);
         };
 
-		$resetfields = function () {
+        $resetfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\$this->". $value . " = null";
+                $value = "\n\t\t\$this->" . $value . " = null";
                 $value .= ";";
             });
 
@@ -483,35 +492,35 @@ abstract class LivewireGeneratorCommand extends Command
             return implode('', $filterColumns);
         };
 
-		$addfields = function () {
+        $addfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\t'" . $value . "' => \$this-> ". $value;
+                $value = "\n\t\t\t'" . $value . "' => \$this-> " . $value;
             });
 
             // CSV format
             return implode(',', $filterColumns);
         };
 
-		$keyWord = function () {
+        $keyWord = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-				$value = "\n\t\t\t\t\t\t->orWhere('" . $value . "', 'LIKE', \$keyWord)";
+                $value = "\n\t\t\t\t\t\t->orWhere('" . $value . "', 'LIKE', \$keyWord)";
             });
 
             // CSV format
             return implode('', $filterColumns);
         };
 
-		$factoryfields = function () {
+        $factoryfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
@@ -525,18 +534,63 @@ abstract class LivewireGeneratorCommand extends Command
             return implode('', $filterColumns);
         };
 
-		$editfields = function () {
+        $editfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\$this->" . $value . " = \$record-> ". $value .";";
+                $value = "\n\t\t\$this->" . $value . " = \$record-> " . $value . ";";
             });
 
             // CSV format
             return implode('', $filterColumns);
+        };
+
+        $tableColumnsClass = function () {
+            $markup = '    public function columns(): array
+            {
+                return [
+                    Column::make("Id", "id")
+                        ->sortable(),
+
+';
+
+            foreach ($this->getFilteredColumns() as $column) {
+                if ($column != 'is_active') {
+                    $markup .= '            Column::make("' . Str::title(str_replace('_', ' ', $column)) . '", "' . $column . '")->searchable()->sortable(),';
+                } else {
+                    $markup .= '            BooleanColumn::make("active", "is_active")->sortable(),';
+                }
+            }
+
+            $markup .= '
+                    Column::make("Updated at", "updated_at")
+                        ->format(function ($value, $row, Column $column) {
+                            return Carbon::parse($value)->diffForHumans();
+                        })
+                        ->sortable(),
+
+                    Column::make("Actions")
+                        ->label(
+                            function ($row, Column $column) {
+                                $delete = "<button class=\"rounded-lg bg-red-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"delete(" . $row->id . ")\">Delete</button>";
+                                $edit = "<a href=\"{{ route(' . Str::kebab(Str::plural($this->name)) . '.edit\', $row->id) }}\" class=\"rounded-lg bg-blue-500 px-4 py-2   text-white-500 mr-2\">Edit</a>";
+                                if (!$row->is_active) {
+                                    $is_active = "<button class=\"rounded-lg bg-green-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"approve(" . $row->id . ")\">Active</button>";
+                                } else {
+                                    $is_active = "<button class=\"rounded-lg bg-red-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"disapprove(" . $row->id . ")\">Deactive</button>";
+                                }
+                                // return  $delete;
+                                return $edit . $delete . $is_active;
+                            }
+                        )->html(),
+
+                ];
+            }';
+
+            return $markup;
         };
 
         list($relations, $properties) = (new ModelGenerator($this->table, $properties, $this->modelNamespace))->getEloquentRelations();
@@ -554,6 +608,7 @@ abstract class LivewireGeneratorCommand extends Command
             '{{properties}}' => $properties,
             '{{softDeletesNamespace}}' => $softDeletesNamespace,
             '{{softDeletes}}' => $softDeletes,
+            '{{tableColumnsClass}}' => $tableColumnsClass(),
         ];
     }
 

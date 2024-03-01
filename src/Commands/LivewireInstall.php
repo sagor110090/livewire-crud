@@ -26,9 +26,9 @@ class LivewireInstall extends Command
         (new Filesystem)->ensureDirectoryExists(resource_path('views/livewire'));
 
         if ($this->confirm('This will delete compiled assets in public folder. It will Re-Compile this. Do you want to proceed?') == 'yes') {
-            if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App') == 'yes') {
-                Artisan::call('breeze:install', [], $this->getOutput());
-            }
+            // if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App') == 'yes') {
+            //     Artisan::call('breeze:install', [], $this->getOutput());
+            // }
             $routeFile = base_path('routes/web.php');
             $string = file_get_contents($routeFile);
             if (!str_contains($string, '//Route Hooks - Do not delete//')) {
@@ -68,6 +68,7 @@ class LivewireInstall extends Command
                 $npm->deleteDirectory(base_path('node_modules'));
                 $npm->delete(base_path('yarn.lock'));
                 $npm->delete(base_path('package-lock.json'));
+                $npm->delete(base_path('tailwind.config.js'));
             });
             $this->info('node_modules files Removed');
             $this->info('');

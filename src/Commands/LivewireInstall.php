@@ -26,17 +26,20 @@ class LivewireInstall extends Command
         (new Filesystem)->ensureDirectoryExists(resource_path('views/livewire'));
 
         if ($this->confirm('This will delete compiled assets in public folder. It will Re-Compile this. Do you want to proceed?') == 'yes') {
-            // if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App') == 'yes') {
-            //     Artisan::call('breeze:install', [], $this->getOutput());
-            // }
-            if ($this->confirm('Do you want to Delete default Laravel Starter files?') != 'yes') {
-                $this->warn('Installation Aborted, No file was changed');
-                return;
+            if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App') == 'yes') {
+                Artisan::call('breeze:install blade', [], $this->getOutput());
             }
+
             //delete resources  folder
             $this->filesystem->deleteDirectory(resource_path('views'));
             //delete app/Http/Controllers folder
             $this->filesystem->deleteDirectory(app_path('Http/Controllers'));
+
+            //publish livewire config
+            $this->call('vendor:publish', [
+                '--provider' => 'Livewire\LivewireServiceProvider',
+                '--tag' => 'config',
+            ]);
 
             $routeFile = base_path('routes/web.php');
             $string = file_get_contents($routeFile);
@@ -69,20 +72,20 @@ class LivewireInstall extends Command
 
             exec('npm install');
             $this->info('npm install complete');
-            exec('npm run dev');
+            exec('npm run build');
             $this->info('npm run dev complete');
 
             $this->info('Installation Complete, few seconds please, let us optimize your site');
             $this->warn('');
-            $this->warn('Removing Dumped node_modules files. Please wait...');
+            // $this->warn('Removing Dumped node_modules files. Please wait...');
 
-            tap(new Filesystem, function ($npm) {
-                $npm->deleteDirectory(base_path('node_modules'));
-                $npm->delete(base_path('yarn.lock'));
-                $npm->delete(base_path('package-lock.json'));
-                $npm->delete(base_path('tailwind.config.js'));
-            });
-            $this->info('node_modules files Removed');
+            // tap(new Filesystem, function ($npm) {
+            //     $npm->deleteDirectory(base_path('node_modules'));
+            //     $npm->delete(base_path('yarn.lock'));
+            //     $npm->delete(base_path('package-lock.json'));
+            //     $npm->delete(base_path('tailwind.config.js'));
+            // });
+            // $this->info('node_modules files Removed');
             $this->info('');
             $this->warn('All set, run <info>php artisan crud:generate {table-name}</info> to build your CRUD');
         } else $this->warn('Installation Aborted, No file was changed');

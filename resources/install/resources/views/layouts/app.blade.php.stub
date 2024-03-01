@@ -30,9 +30,9 @@
         @if (request()->is('login'))
         @yield('content')
         @else
-        @include('layouts.parts.sidebar')
+        @include('layouts.partials.sidebar')
         <div id="page-content">
-            @include('layouts.parts.nav')
+            @include('layouts.partials.nav')
             <!-- Container fluid -->
             <div class="bg-primary pt-10 pb-21"></div>
             <div class="container-fluid mt-n22 px-6">
@@ -57,7 +57,7 @@
         </div>
         @endif
     </div>
-    @include('layouts.parts.script')
+    @include('layouts.partials.script')
 
 
 

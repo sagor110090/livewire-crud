@@ -29,6 +29,15 @@ class LivewireInstall extends Command
             // if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App') == 'yes') {
             //     Artisan::call('breeze:install', [], $this->getOutput());
             // }
+            if ($this->confirm('Do you want to Delete default Laravel Starter files?') != 'yes') {
+                $this->warn('Installation Aborted, No file was changed');
+                return;
+            }
+            //delete resources  folder
+            $this->filesystem->deleteDirectory(resource_path('views'));
+            //delete app/Http/Controllers folder
+            $this->filesystem->deleteDirectory(app_path('Http/Controllers'));
+
             $routeFile = base_path('routes/web.php');
             $string = file_get_contents($routeFile);
             if (!str_contains($string, '//Route Hooks - Do not delete//')) {
@@ -58,7 +67,10 @@ class LivewireInstall extends Command
             $this->warn('Running: <info>npm install && npm run dev</info> Please wait...');
             $this->line('');
 
-            exec('npm install && npm run dev');
+            exec('npm install');
+            $this->info('npm install complete');
+            exec('npm run dev');
+            $this->info('npm run dev complete');
 
             $this->info('Installation Complete, few seconds please, let us optimize your site');
             $this->warn('');

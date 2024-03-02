@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sagor110090/livewire-crud.svg?style=flat-square)](https://packagist.org/packages/sagor110090/livewire-crud)
 
-A livewire CRUD Generation package to help scaffold basic site files. Package is autoloaded as per PSR-4 autoloading in any laravel version `^5.6` so no extra config required. However is has been tested on version `^7 & ^8`. It uses ***auth*** middleware thus installs `laravel/ui` just incase you don't have any other auth mechanism, this does not mean you have to use `laravel/ui`.
+A livewire CRUD Generation package to help scaffold basic site files. Package is autoloaded as per PSR-4 autoloading in any laravel version `^10.0` so no extra config required. However is has been tested on version `^8`. It uses ***auth*** middleware thus installs `breeze` just incase you don't have any other auth mechanism.
 
 ## Documentation
 
@@ -29,8 +29,7 @@ php artisan crud:install
     * Run `npm install && run dev`
     * Flush *node_modules* files from you folder.
 
-If you choose to scaffold authentication this command will run `php artisan ui:auth`
-to generate Auth scaffolds using `laravel/ui` package. You can skip this step if your app has authentication already.
+ 
 
 Then generate Crud by:
 

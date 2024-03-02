@@ -1,0 +1,4 @@
+            <div>
+                <x-input label="{{__('{{title}}')}}" name="{{column}}" type="{{type}}"  wire:model="{{column}}"
+                    placeholder="{{__('{{title}}')}}" />
+            </div>

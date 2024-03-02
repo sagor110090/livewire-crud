@@ -113,9 +113,11 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         );
 
         //make a directory for the livewire component
-        $this->makeDirectory($livewirePath);
+        if (!file_exists($livewirePath)) {
+            mkdir($livewirePath, 0777, true);
+        }
 
-        var_dump($livewirePath);
+
         $this->warn('Creating: <info>Livewire Component...</info>');
 
         foreach (['Index', 'Table', 'Create', 'Edit'] as $class) {
@@ -194,7 +196,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 
 
 
-        foreach (['view', 'index', 'create', 'update'] as $view) {
+        foreach (['view', 'index', 'create', 'edit'] as $view) {
             $viewTemplate = str_replace(
                 array_keys($replace),
                 array_values($replace),

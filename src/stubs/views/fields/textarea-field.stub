@@ -1,0 +1,3 @@
+            <div>
+                <x-textarea label="{{__('{{title}}')}}" name="{{column}}" placeholder="{{__('{{title}}')}}" wire:model="{{column}}" />
+            </div>

@@ -195,7 +195,9 @@ abstract class LivewireGeneratorCommand extends Command
      */
     protected function _getLivewirePath($name)
     {
-        return app_path($this->_getNamespacePath($this->livewireNamespace) . "{$name}s");
+        //make plural
+        $name = Str::plural($name);
+        return app_path($this->_getNamespacePath($this->livewireNamespace) . "{$name}");
     }
 
     /**
@@ -242,7 +244,7 @@ abstract class LivewireGeneratorCommand extends Command
 
     protected function _getLivewirePathForClass($class)
     {
-        var_dump($class);
+        // var_dump($class);
         $name = $this->options['route'] ?? Str::kebab(Str::plural($this->name));
         return $this->makeDirectory(app_path("Livewire/{$name}/{$class}.php"));
     }
@@ -303,19 +305,26 @@ abstract class LivewireGeneratorCommand extends Command
                     if ($datatypeAndFields[$i]['type'] == 'longtext') {
                         $type = 'textarea-field';
                     }
+                    if ($datatypeAndFields[$i]['type'] == 'text') {
+                        $type = 'textarea-field';
+                    }
                     if ($datatypeAndFields[$i]['type'] == 'date') {
                         $type = 'date-field';
                     }
                     if ($datatypeAndFields[$i]['type'] == 'time') {
                         $type = 'time-field';
                     }
+                    if ($datatypeAndFields[$i]['type'] == 'tinyint(1)') {
+                        $type = 'checkbox-field';
+                    }
+                    // dump($datatypeAndFields[$i]);
                 }
             }
         }
         return str_replace(
             array_keys($replace),
             array_values($replace),
-            $this->getStub("views/{$type}")
+            $this->getStub("views/fields/{$type}")
         );
     }
     protected function getFieldForShow($title, $column, $type = null)
@@ -327,7 +336,7 @@ abstract class LivewireGeneratorCommand extends Command
         return str_replace(
             array_keys($replace),
             array_values($replace),
-            $this->getStub("views/{$type}")
+            $this->getStub("views/fields/{$type}")
         );
     }
 
@@ -541,7 +550,7 @@ abstract class LivewireGeneratorCommand extends Command
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\$this->" . $value . " = \$record-> " . $value . ";";
+                $value = "\n\t\t\$this->" . $value . " = \$record->" . $value . ";";
             });
 
             // CSV format
@@ -575,12 +584,12 @@ abstract class LivewireGeneratorCommand extends Command
                     Column::make("Actions")
                         ->label(
                             function ($row, Column $column) {
-                                $delete = "<button class=\"rounded-lg bg-red-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"delete(" . $row->id . ")\">Delete</button>";
-                                $edit = "<a href=\"{{ route(' . Str::kebab(Str::plural($this->name)) . '.edit\', $row->id) }}\" class=\"rounded-lg bg-blue-500 px-4 py-2   text-white-500 mr-2\">Edit</a>";
+                                $delete = "<button class=\"rounded-lg bg-red-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"triggerConfirm(" . $row->id . ")\">Delete</button>";
+                                $edit = "<button class=\"rounded-lg bg-blue-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"edit(" . $row->id . ")\">Edit</button>";
                                 if (!$row->is_active) {
                                     $is_active = "<button class=\"rounded-lg bg-green-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"approve(" . $row->id . ")\">Active</button>";
                                 } else {
-                                    $is_active = "<button class=\"rounded-lg bg-red-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"disapprove(" . $row->id . ")\">Deactive</button>";
+                                    $is_active = "<button class=\"rounded-lg bg-red-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"approve(" . $row->id . ")\">Deactive</button>";
                                 }
                                 // return  $delete;
                                 return $edit . $delete . $is_active;

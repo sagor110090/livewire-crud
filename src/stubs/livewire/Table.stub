@@ -15,12 +15,16 @@ class Table extends DataTableComponent
     use LivewireAlert;
 
     protected $listeners = [
-        'categoryCreated' => '$refresh',
-        'categoryUpdated' => '$refresh',
-        'categoryDeleted' => '$refresh',
+        '{{modelNamePluralLowerCase}}Created' => '$refresh',
+        '{{modelNamePluralLowerCase}}Updated' => '$refresh',
+        '{{modelNamePluralLowerCase}}Deleted' => '$refresh',
+         'confirmed',
+        'cancelled',
     ];
 
     protected $model = {{modelName}}::class;
+
+    public $deleteId = null;
 
     public function configure(): void
     {
@@ -36,26 +40,50 @@ class Table extends DataTableComponent
     // edit
     public function edit($id)
     {
-        // dispatch('showModal', ['honesty-bar-modal-order-management',{{ $item->id }}])
-        // button click from here
-        $this->dispatch('openModal',  component: 'category.edit-category', arguments: ['id' => $id]);
+        $this->dispatch('openModal',  component: '{{modelNamePluralLowerCase}}.edit', arguments: ['id' => $id]);
     }
 
-    // delete
-    public function delete($id)
+    public function triggerConfirm($id)
     {
-        $category = {{modelName}}::find($id);
-        $category->delete();
-        $this->dispatch('categoryDeleted');
+        $this->deleteId = $id;
+        $this->confirm('Do you want to delete?', [
+            'toast' => false,
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Cancel',
+            'onConfirmed' => 'confirmed',
+            'onCancelled' => 'cancelled',
+        ]);
+    }
+
+    public function confirmed()
+    {
+        $this->destroy();
+        $this->alert( 'success', 'Deleted successfully.');
+    }
+
+    public function cancelled()
+    {
+        $this->alert('info', 'Understood');
+    }
+
+    public function destroy()
+    {
+        if ($this->deleteId) {
+            $record = {{modelName}}::where('id', $this->deleteId);
+            $record->delete();
+            $this->dispatch('{{modelNamePluralLowerCase}}Deleted');
+        }
     }
 
     // approve
     public function approve($id)
     {
-        $category = {{modelName}}::find($id);
-        $category->update([
-            'is_active' => !$category->is_active,
+        $record = {{modelName}}::find($id);
+        $record->update([
+            'is_active' => !$record->is_active,
         ]);
-        $this->dispatch('categoryUpdated');
+        $this->dispatch('{{modelNamePluralLowerCase}}Updated');
     }
+
 }

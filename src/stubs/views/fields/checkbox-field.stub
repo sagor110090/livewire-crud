@@ -1,0 +1,3 @@
+            <div>
+                    <x-checkbox id="right-label" label="{{__('{{title}}')}}" name="{{column}}"  wire:model="{{column}}" />
+            </div>

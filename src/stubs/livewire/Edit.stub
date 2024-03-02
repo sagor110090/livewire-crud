@@ -1,39 +1,31 @@
 <?php
+namespace App\Livewire\{{modelNamePluralUpperCase}};
 
-namespace App\Livewire\Category;
-
-use App\Models\Category;
 use LivewireUI\Modal\ModalComponent;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\{{modelName}};
 
-class EditCategory extends ModalComponent
+class Edit extends ModalComponent
 {
-    public $name;
-    public $slug;
+    use LivewireAlert;
 
-    public $is_active;
-    public $category_id;
+    public {{updatefield}};
+    public $id;
 
     public function mount($id)
     {
-        $category = Category::find($id);
-        $this->name = $category->name;
-        $this->slug = $category->slug;
-        $this->is_active = $category->is_active;
-        $this->category_id = $category->id;
+        $this->id = $id;
+        $record = {{modelName}}::find($id);
+        {{editfields}}
+
     }
 
     public function render()
     {
-        $categories = Category::whereNotIn('id', [$this->category_id])->get();
-        return view('livewire.category.edit-category', ['categories' => $categories]);
+        return view('livewire.{{modelNamePluralLowerCase}}.edit');
     }
 
 
-    //updatedName
-    public function updatedName($value)
-    {
-        $this->slug = \Illuminate\Support\Str::slug($value);
-    }
 
 
     //update
@@ -41,18 +33,15 @@ class EditCategory extends ModalComponent
     {
 
         $this->validate([
-            'name' => 'required|unique:categories,name,' . $this->category_id,
-            'slug' => 'required|unique:categories,slug,' . $this->category_id,
-            'is_active' => 'required|boolean',
+           {{rules}}
         ]);
 
-        $category = Category::find($this->category_id);
-        $category->update([
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'is_active' => $this->is_active,
+        $record = {{modelName}}::find($this->id);
+        $record->update([
+            {{addfields}}
         ]);
 
-        $this->closeModalWithEvents(['categoryUpdated']);
+        $this->closeModalWithEvents(['{{modelNamePluralLowerCase}}Updated']);
+       // $this->reset();
     }
 }

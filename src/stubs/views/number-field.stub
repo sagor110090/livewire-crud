@@ -1,4 +1,0 @@
-            <div class="form-group mt-3">
-                <label for="{{column}}">{{__('{{title}}')}}</label>
-                <input wire:model="{{column}}" type="number" class="form-control" id="{{column}}" placeholder="{{__('{{title}}')}}">@error('{{column}}') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>

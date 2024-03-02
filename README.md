@@ -13,7 +13,7 @@ More detailed documentation can ne found at [livewire-crud](https://sagor110090.
 You can install the package via [Composer](https://getcomposer.org/):
 
 ```bash
-composer require sagor110090/livewire-crud
+composer require sagor110090/livewire-crud --dev
 ```
 
 ## Usage

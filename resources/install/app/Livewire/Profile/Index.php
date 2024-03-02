@@ -35,13 +35,13 @@ class Index extends Component
     /**
      * Delete the currently authenticated user.
      */
-    public function deleteUser(Logout $logout): void
+    public function deleteUser(): void
     {
         $this->validate([
             'password' => ['required', 'string', 'current_password'],
         ]);
 
-        tap(Auth::user(), $logout(...))->delete();
+        Auth::user()->delete();
 
         $this->redirect('/', navigate: true);
     }

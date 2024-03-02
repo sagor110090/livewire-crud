@@ -584,12 +584,12 @@ abstract class LivewireGeneratorCommand extends Command
                     Column::make("Actions")
                         ->label(
                             function ($row, Column $column) {
-                                $delete = "<button class=\"rounded-lg bg-red-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"triggerConfirm(" . $row->id . ")\">Delete</button>";
-                                $edit = "<button class=\"rounded-lg bg-blue-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"edit(" . $row->id . ")\">Edit</button>";
+                                $delete = "<button class=\"rounded-lg bg-red-500 px-4 py-2 text-white mr-2\" wire:click=\"triggerConfirm(" . $row->id . ")\">Delete</button>";
+                                $edit = "<button class=\"rounded-lg bg-blue-500 px-4 py-2 text-white mr-2\" wire:click=\"edit(" . $row->id . ")\">Edit</button>";
                                 if (!$row->is_active) {
-                                    $is_active = "<button class=\"rounded-lg bg-green-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"approve(" . $row->id . ")\">Active</button>";
+                                    $is_active = "<button class=\"rounded-lg bg-green-500 px-4 py-2 text-white mr-2\" wire:click=\"approve(" . $row->id . ")\">Active</button>";
                                 } else {
-                                    $is_active = "<button class=\"rounded-lg bg-red-500 px-4 py-2   text-white-500 mr-2\" wire:click=\"approve(" . $row->id . ")\">Deactive</button>";
+                                    $is_active = "<button class=\"rounded-lg bg-red-500 px-4 py-2 text-white mr-2\" wire:click=\"approve(" . $row->id . ")\">Deactive</button>";
                                 }
                                 // return  $delete;
                                 return $edit . $delete . $is_active;

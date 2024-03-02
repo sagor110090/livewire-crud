@@ -46,7 +46,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $this->argument = $this->getNameInput();
         $routeFile = base_path('routes/web.php');
         $routeContents = $this->filesystem->get($routeFile);
-        $routeItemStub = "\tRoute::get('" .     Str::kebab(Str::plural($this->name)) . "', App\\Livewire\\" . $this->name . "s::class)->middleware('auth');";
+        $routeItemStub = "\tRoute::get('" .     Str::kebab(Str::plural($this->name)) . "', App\\Livewire\\" . Str::plural($this->name) . "\\Index" . "::class)->name('" . Str::kebab(Str::plural($this->name)) . ".index')->middleware('auth');";
         // $routeItemStub = "\tRoute::view('" . 	$this->getNameInput() . "', 'livewire." . $this->getNameInput() . ".index')->middleware('auth');";
         $routeItemHook = '//Route Hooks - Do not delete//';
 
@@ -69,6 +69,8 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         {{ __("' . Str::title(Str::snake(Str::plural($this->name), ' ')) . '") }}
     </x-nav-link>';
 
+        // dump($navItemStub);
+        // dump(!Str::contains($layoutContents, $navItemStub));
 
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';
 

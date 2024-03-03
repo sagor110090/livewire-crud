@@ -69,8 +69,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         {{ __("' . Str::title(Str::snake(Str::plural($this->name), ' ')) . '") }}
     </x-nav-link>';
 
-        // dump($navItemStub);
-        // dump(!Str::contains($layoutContents, $navItemStub));
+
 
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';
 

@@ -150,7 +150,7 @@ abstract class LivewireGeneratorCommand extends Command
     {
         $stub_path = config('livewire-crud.stub_path', 'default');
         if ($stub_path == 'default') {
-            $stub_path = __DIR__ . '/../stubs/';
+            $stub_path = __DIR__ . '/stubs';
         }
 
         $path = Str::finish($stub_path, '/') . "{$type}.stub";

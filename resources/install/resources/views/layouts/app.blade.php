@@ -13,6 +13,8 @@
     <wireui:scripts />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    @rappasoftTableStyles
+    @rappasoftTableThirdPartyStyles
 </head>
 
 <body>
@@ -39,6 +41,9 @@
     @livewire('wire-elements-modal')
     @stack('scripts')
     <x-livewire-alert::scripts />
+    @rappasoftTableScripts
+    @rappasoftTableThirdPartyScripts
+
 </body>
 
 </html>

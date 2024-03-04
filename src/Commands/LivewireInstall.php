@@ -31,7 +31,7 @@ class LivewireInstall extends Command
             }
 
             //delete resources  folder
-            $this->filesystem->deleteDirectory(resource_path('views'));
+            // $this->filesystem->deleteDirectory(resource_path('views'));
             //delete app/Http/Controllers folder
             $this->filesystem->deleteDirectory(app_path('Http/Controllers'));
 

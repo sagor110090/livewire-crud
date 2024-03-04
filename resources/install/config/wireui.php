@@ -187,14 +187,14 @@ return [
             'class' => Components\Radio::class,
             'alias' => 'radio',
         ],
-        'modal' => [
-            'class' => Components\Modal::class,
-            'alias' => 'modal',
-        ],
-        'modal.card' => [
-            'class' => Components\ModalCard::class,
-            'alias' => 'modal.card',
-        ],
+        // 'modal' => [
+        //     'class' => Components\Modal::class,
+        //     'alias' => 'modal',
+        // ],
+        // 'modal.card' => [
+        //     'class' => Components\ModalCard::class,
+        //     'alias' => 'modal.card',
+        // ],
         'dialog' => [
             'class' => Components\Dialog::class,
             'alias' => 'dialog',

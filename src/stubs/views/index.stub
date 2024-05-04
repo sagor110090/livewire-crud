@@ -1,6 +1,6 @@
 <div>
     <x-slot name="header">
-       {{modelNamePluralUpperCase}}
+       {{modelNameLowerCase}}
     </x-slot>
     <x-primary-button onclick="Livewire.dispatch('openModal', { component: '{{modelNamePluralLowerCase}}.create' })"
     class="flex mb-10 justify-right">

@@ -16,7 +16,7 @@ class Create extends ModalComponent
 
     public function render()
     {
-        return view('livewire.{{modelNamePluralLowerCase}}.create');
+        return view('livewire.{{modelView}}.create');
     }
 
 

@@ -8,6 +8,6 @@ class Index extends Component
 {
     public function render()
     {
-        return view('livewire.{{modelNamePluralLowerCase}}.index');
+        return view('livewire.{{modelView}}.index');
     }
 }

@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^8.1.0",
-        "laravel/framework": "^10.0",
         "livewire/livewire": "^3.0",
         "laravel/breeze": "^1.0",
         "jantinnerezo/livewire-alert": "^3.0",

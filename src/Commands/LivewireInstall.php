@@ -27,7 +27,7 @@ class LivewireInstall extends Command
 
         if ($this->confirm('This will delete compiled assets in public folder. It will Re-Compile this. Do you want to proceed?') == 'yes') {
             if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App') == 'yes') {
-                Artisan::call('breeze:install blade', [], $this->getOutput());
+                Artisan::call('breeze:install livewire', [], $this->getOutput());
             }
 
             //delete resources  folder

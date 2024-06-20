@@ -104,7 +104,7 @@ class Index extends Component
         $user = Auth::user();
 
         if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: RouteServiceProvider::HOME);
+            $this->redirectIntended(default: route('dashboard', absolute: false));
 
             return;
         }

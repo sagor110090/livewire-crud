@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/sagor110090/livewire-crud.svg?style=flat-square)](https://packagist.org/packages/sagor110090/livewire-crud)
 
-A livewire CRUD Generation package to help scaffold basic site files. Package is autoloaded as per PSR-4 autoloading in any laravel version `^10.0` so no extra config required. However is has been tested on version `^8`. It uses ***auth*** middleware thus installs `breeze` just incase you don't have any other auth mechanism.
+A livewire CRUD Generation package to help scaffold basic site files. Package is autoloaded as per PSR-4 autoloading in any laravel version `^11.0` so no extra config required. However is has been tested on version `^10.0`. It uses ***auth*** middleware thus installs `breeze` just incase you don't have any other auth mechanism.
 
 ## Documentation
 

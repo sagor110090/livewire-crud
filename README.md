@@ -6,7 +6,7 @@ A livewire CRUD Generation package to help scaffold basic site files. Package is
 
 ## Documentation
 
-More detailed documentation can ne found at [livewire-crud](https://sagor110090.github.io/#/)
+More detailed documentation can be found at [livewire-crud](https://sagor110090.github.io/#/)
 
 ## Installation
 

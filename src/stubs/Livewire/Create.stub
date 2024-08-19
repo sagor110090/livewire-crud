@@ -2,11 +2,11 @@
 
 namespace App\Livewire\{{modelNamePluralUpperCase}};
 
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\{{modelName}};
 
-class Create extends ModalComponent
+class Create extends Component
 {
 
     use LivewireAlert;

@@ -167,21 +167,21 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 
         foreach ($this->getColumns() as $values) {
             $type = "text";
-            // if (Str::endsWith(($values->Type), ['timestamp', 'date', 'datetime'])) {
-            // $type = "date";
-            // }
-            // elseif (Str::endsWith(($values->Type), 'int')) {
-            // $type = "number";
-            // }
-            // elseif (Str::startsWith(($values->Type), 'time')) {
-            // $type = "time";
-            // }
-            // elseif (Str::contains(($values->Type), 'text')) {
-            // $type = "textarea";
-            // }
-            // else{
-            // $type = "text";
-            // }
+            if (Str::endsWith(($values->Type), ['timestamp', 'date', 'datetime'])) {
+            $type = "date";
+            }
+            elseif (Str::endsWith(($values->Type), 'int')) {
+            $type = "number";
+            }
+            elseif (Str::startsWith(($values->Type), 'time')) {
+            $type = "time";
+            }
+            elseif (Str::contains(($values->Type), 'text')) {
+            $type = "textarea";
+            }
+            else{
+            $type = "text";
+            }
         }
 
         $replace = array_merge($this->buildReplacements(), [

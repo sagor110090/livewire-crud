@@ -38,7 +38,7 @@
         </div>
     </div>
     @livewireScripts
-    @livewire('wire-elements-modal')
+    <livewire:modals/>
     @stack('scripts')
     <x-livewire-alert::scripts />
     @rappasoftTableScripts

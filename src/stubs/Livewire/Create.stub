@@ -42,6 +42,7 @@ class Create extends Component
             'showConfirmButton' =>  false
         ]);
 
-        $this->closeModalWithEvents(['{{modelNamePluralLowerCase}}Created']);
+        $this->dispatch(['{{modelNamePluralLowerCase}}Created']);
+        $this->dispatch('closeModal');
     }
 }

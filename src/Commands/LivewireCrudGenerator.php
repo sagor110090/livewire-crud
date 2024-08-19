@@ -148,53 +148,22 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
     {
         $this->warn('Creating:<info> Views ...</info>');
 
-        $tableHead = "\n";
-        $tableBody = "\n";
-        $viewRows = "\n";
+
         $form = "\n";
-        $show = "\n";
-        $type = null;
         foreach ($this->getFilteredColumns() as $column) {
             $title = Str::title(str_replace('_', ' ', $column));
-
-            $tableHead .= "\t\t\t\t" . $this->getHead($title);
-            $tableBody .= "\t\t\t\t" . $this->getBody($column);
-            $show .= $this->getFieldForShow($title, $column, 'show-field');
-            $show .= "\n";
             $form .= $this->getField($title, $column, 'form-field');
             $form .= "\n";
         }
 
-        foreach ($this->getColumns() as $values) {
-            $type = "text";
-            // if (Str::endsWith(($values->Type), ['timestamp', 'date', 'datetime'])) {
-            // $type = "date";
-            // }
-            // elseif (Str::endsWith(($values->Type), 'int')) {
-            // $type = "number";
-            // }
-            // elseif (Str::startsWith(($values->Type), 'time')) {
-            // $type = "time";
-            // }
-            // elseif (Str::contains(($values->Type), 'text')) {
-            // $type = "textarea";
-            // }
-            // else{
-            // $type = "text";
-            // }
-        }
+
 
         $replace = array_merge($this->buildReplacements(), [
-            '{{tableHeader}}' => $tableHead,
-            '{{tableBody}}' => $tableBody,
-            '{{viewRows}}' => $viewRows,
-            '{{form}}' => $form,
-            '{{show}}' => $show,
-            '{{type}}' => $type,
+            '{{form}}' => $form
         ]);
+        // dd($replace);
 
         $this->buildLayout();
-
 
 
         foreach (['index', 'create', 'edit'] as $view) {
@@ -203,10 +172,10 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
                 array_values($replace),
                 $this->getStub("views/{$view}")
             );
+            // dump($this->_getViewPath($view),$viewTemplate);
 
             $this->write($this->_getViewPath($view), $viewTemplate);
         }
-        // dd($show);
         return $this;
     }
 

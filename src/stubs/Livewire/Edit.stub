@@ -41,7 +41,8 @@ class Edit extends Component
             {{addfields}}
         ]);
 
-        $this->closeModalWithEvents(['{{modelNamePluralLowerCase}}Updated']);
+        $this->dispatch(['{{modelNamePluralLowerCase}}Updated']);
+        $this->dispatch('closeModal');
        // $this->reset();
     }
 }

@@ -40,7 +40,7 @@ class Table extends DataTableComponent
     // edit
     public function edit($id)
     {
-        $this->dispatch('openModal',  component: '{{modelView}}.edit', arguments: ['id' => $id]);
+        $this->dispatch('openModal',  component: '{{modelView}}.edit', data: ['id' => $id]);
     }
 
     public function triggerConfirm($id)

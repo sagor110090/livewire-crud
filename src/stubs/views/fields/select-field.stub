@@ -1,0 +1,6 @@
+<x-select
+    label="Select {{__('{{title}}')}}"
+    placeholder="Select one {{title}}"
+    :options='{{options}}'
+    wire:model.defer="{{column}}"
+/>

@@ -288,6 +288,7 @@ abstract class LivewireGeneratorCommand extends Command
         ]);
 
 
+
         $unwanted = $this->unwantedColumns;
 
         for ($i = 0; $i < sizeof($this->datatypeAndFields); $i++) {
@@ -296,6 +297,7 @@ abstract class LivewireGeneratorCommand extends Command
             });
             if (isset($datatypeAndFields[$i]['name'])) {
                 if ($datatypeAndFields[$i]['name'] == $column) {
+
                     if ($datatypeAndFields[$i]['type'] == 'varchar(255)') {
                         $type = 'form-field';
                     }
@@ -315,8 +317,20 @@ abstract class LivewireGeneratorCommand extends Command
                         $type = 'time-field';
                     }
                     if ($datatypeAndFields[$i]['type'] == 'tinyint(1)') {
-                        $type = 'checkbox-field';
+                        $type = 'radio-field';
                     }
+                    if (strpos($datatypeAndFields[$i]['type'], 'enum') !== false) {
+                        $type = 'select-field';
+                        $enumOptions = explode(',', str_replace("'", "", substr($datatypeAndFields[$i]['type'], 5, -1)));
+                        $replace['{{options}}'] = json_encode($enumOptions);
+                    }
+                    if(strpos($datatypeAndFields[$i]['type'], 'decimal') !== false){
+                        $type = 'number-field';
+                    }
+                    //bigint unsigned
+                    // if($datatypeAndFields[$i]['type'] == 'bigint unsigned'){
+                    //     return ;
+                    // }
                     // dump($datatypeAndFields[$i]);
                 }
             }
@@ -435,6 +449,7 @@ abstract class LivewireGeneratorCommand extends Command
 
         foreach ($this->getColumns() as $value) {
             $properties .= "\n * @property $$value->Field";
+            // if($value->Type != "bigint unsigned"){
 
             if ($value->Null == 'NO') {
                 $rulesArray[$value->Field] = 'required';
@@ -444,10 +459,12 @@ abstract class LivewireGeneratorCommand extends Command
                 $softDeletesNamespace = "use Illuminate\Database\Eloquent\SoftDeletes;\n";
                 $softDeletes = "use SoftDeletes;\n";
             }
+        //  }
         }
 
         $rules = function () use ($rulesArray) {
             $rules = '';
+
             // Exclude the unwanted rulesArray
             $rulesArray = Arr::except($rulesArray, $this->unwantedColumns);
             // Make rulesArray
@@ -592,7 +609,7 @@ abstract class LivewireGeneratorCommand extends Command
                                     $is_active = "<button class=\"rounded-lg bg-red-500 px-4 py-2 text-white mr-2\" wire:click=\"approve(" . $row->id . ")\">Deactive</button>";
                                 }
                                 // return  $delete;
-                                return $edit . $delete . $is_active;
+                                return $edit . $delete;
                             }
                         )->html(),
 

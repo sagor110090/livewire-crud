@@ -197,7 +197,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 
 
 
-        foreach (['view', 'index', 'create', 'edit'] as $view) {
+        foreach (['index', 'create', 'edit'] as $view) {
             $viewTemplate = str_replace(
                 array_keys($replace),
                 array_values($replace),

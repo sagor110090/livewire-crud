@@ -4,7 +4,7 @@
             <div class="w-full max-w-lg px-6 py-8 mx-auto bg-white rounded-lg shadow-lg sm:px-10">
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-2xl font-bold text-gray-900" id="modal-title">Create {{modelTitle}}</h3>
+                    <h3 class="text-2xl font-bold text-gray-900" id="modal-title">Edit {{modelTitle}}</h3>
                     <button wire:click="$dispatch('closeModal')" class="text-gray-400 hover:text-gray-500">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">

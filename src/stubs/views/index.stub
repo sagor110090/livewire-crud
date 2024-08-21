@@ -2,7 +2,7 @@
     <x-slot name="header">
        {{modelTitle}}
     </x-slot>
-    <x-primary-button onclick="Livewire.dispatch('openModal', { component: '{{modelNamePluralLowerCase}}.create' })"
+    <x-primary-button onclick="Livewire.dispatch('openModal', { component: '{{modelNamePluralLowerCase}}.create',data:{} })"
     class="flex mb-10 justify-right">
        Create {{modelTitle}}
     </x-primary-button>

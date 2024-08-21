@@ -21,7 +21,7 @@
         "laravel/breeze": "*",
         "jantinnerezo/livewire-alert": "^3.0",
         "rappasoft/laravel-livewire-tables": "*",
-        "sagor110090/livewire-modal": "1.0.1",
+        "sagor110090/livewire-modal": "^1.0.1",
         "wireui/wireui": "^1.0"
     },
     "require-dev": {},

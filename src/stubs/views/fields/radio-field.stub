@@ -1,5 +1,5 @@
 
                     <div>
-                        <x-radio id="right-label" label="{{__('{{title}}')}}" name="{{column}}" value="1" wire:model="{{column}}" />
-                        <x-radio id="right-label" label="{{__('{{title}}')}}" name="{{column}}" value="0" wire:model="{{column}}"  class="mt-2" />
+                        <x-radio id="right-label" label="{{__('Yes')}}" name="{{column}}" value="1" wire:model="{{column}}" />
+                        <x-radio id="right-label" label="{{__('No')}}" name="{{column}}" value="0" wire:model="{{column}}"  class="mt-2" />
                     </div>
